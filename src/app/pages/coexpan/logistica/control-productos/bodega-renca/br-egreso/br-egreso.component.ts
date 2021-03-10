@@ -2,6 +2,7 @@ import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { IonTextarea, IonButton, AlertController, LoadingController } from '@ionic/angular';
 import { CxpService } from '../../../../../../providers/web-services/cxp/cxp.service';
 import { RegistrosModel, GetConsultaModel } from '../../../../../../models/Registros.model';
+import { catchError } from 'rxjs/internal/operators';
 
 @Component({
   selector: 'app-br-egreso',
@@ -77,6 +78,9 @@ export class BrEgresoComponent implements OnInit, AfterViewInit {
           <strong>Error: ${err} bob.<br></strong>`,
           ` `
         );
+      }, (err) => {
+        console.log(err);
+        this.dismiss();
       });
       this.htmlCodigos.value = '';
       this.htmlCodigos.setFocus();

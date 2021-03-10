@@ -79,6 +79,9 @@ export class BrIngresoComponent implements OnInit, AfterViewInit {
           <strong>Error: ${err} bob.<br></strong>`,
           ` `
         );
+      }, (err: any) => {
+        console.log(err);
+        this.dismiss();
       });
       this.htmlCodigos.value = '';
       this.htmlCodigos.setFocus();
