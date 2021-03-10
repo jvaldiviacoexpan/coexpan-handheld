@@ -1,0 +1,47 @@
+<ion-header class="ion-no-border">
+  <div class="tri_sup_izq"> </div>
+  <div class="tri_sup_der"></div>
+</ion-header>
+
+<ion-content>
+  <ion-grid fixed>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="12" style="text-align: center;">
+        <ion-text color="dark">
+          <h3 class="ion-no-margin titulo">Ingreso de Bobinas</h3>
+        </ion-text>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid fixed>
+    <ion-row >
+      <ion-col size="12">
+        <ion-item class="text-area">
+          <ion-textarea #codigos (keyup)="revisarTexto(codigos.value)"
+            (keyup.enter)="presentAlertConfirm(codigos.value)"
+            placeholder="Escanea las bobinas..."
+            rows="10">
+          </ion-textarea>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid class="ion-margin-top">
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="8">
+          <ion-button #btnenviar expand="block" color="dark"
+          (click)="presentAlertConfirm(codigos.value)">
+            Enviar
+          </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+
+<ion-footer class="ion-no-border">
+  <div class="tri_inf_izq"> </div>
+  <div class="tri_inf_der"></div>
+</ion-footer>

@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@600&display=swap');
+
+*:not(ion-icon) {
+  font-family: 'Rubik', sans-serif!important;
+  color: rgba(1, 1, 22, 0.7);
+}
+
+.full-height {
+  height: 100%;
+}
+
+.text-area {
+  background-color: rgb(232, 233, 233);
+  border-radius: 3%;
+}
+
+.titulo {
+  border-radius: 40%;
+  background-color:rgba(255, 255, 255, 0.57);
+  color: rgb(89, 81, 235);
+}
+
+/*Figuras*/
+.tri_sup_izq {
+  position: absolute;
+  width: 100%;
+  height: 0%;
+  border-top: 0px solid transparent;
+  border-right: 480px solid rgba(6, 4, 128, 0.7);
+  border-bottom: 50px solid transparent;
+}
+
+.tri_sup_der {
+  position: relative;
+  width: 100%;
+  height: 0%;
+  border-top: 0px solid transparent;
+  border-left: 480px solid rgba(7, 33, 230, 0.508);
+  border-bottom: 50px solid transparent;
+}
+
+.tri_inf_izq {
+  position: absolute;
+  width: 100%;
+  height: 0%;
+  border-top: 50px solid transparent;
+  border-right: 410px solid rgba(6, 4, 128, 0.7);
+  border-bottom: 0px solid transparent;
+}
+
+.tri_inf_der {
+  position: relative;
+  width: 100%;
+  height: 0%;
+  border-top: 50px solid transparent;
+  border-left: 410px solid rgba(7, 33, 230, 0.508);
+  border-bottom: 0px solid transparent;
+}
+
+.basic-alert {
+  --backdrop-opacity: 0.6;
+  --background: linear-gradient(90deg, rgb(30, 0, 201) 1%, rgb(248, 255, 248) 100%);
+}

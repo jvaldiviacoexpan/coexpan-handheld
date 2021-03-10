@@ -14,6 +14,9 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": [
+              "lodash"
+            ],
             "outputPath": "www",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -66,11 +69,13 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "app:build"
+            "browserTarget": "app:build",
+            "proxyConfig": "proxy.conf.json"
           },
           "configurations": {
             "production": {
-              "browserTarget": "app:build:production"
+              "browserTarget": "app:build:production",
+              "proxyConfig": "proxy.conf.json"
             },
             "ci": {
               "progress": false
@@ -166,6 +171,7 @@
     }
   },
   "cli": {
+    "analytics": "bcb0bc88-df11-4f50-95c1-5f109469f0de",
     "defaultCollection": "@ionic/angular-toolkit"
   },
   "schematics": {

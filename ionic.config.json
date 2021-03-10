@@ -1,7 +1,8 @@
 {
   "name": "Coexpan-Handheld",
   "integrations": {
-    "capacitor": {}
+    "capacitor": {},
+    "cordova": {}
   },
   "type": "angular",
   "id": "8afcbe41"

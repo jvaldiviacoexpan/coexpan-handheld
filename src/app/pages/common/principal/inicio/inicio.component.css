@@ -1,0 +1,41 @@
+
+.full-height {
+  height: 100%;
+}
+
+/*Figuras*/
+.tri_sup_izq {
+  position: absolute;
+  width: 100%;
+  height: 0%;
+  border-top: 0px solid transparent;
+  border-right: 480px solid rgba(230, 7, 7, 0.7);
+  border-bottom: 50px solid transparent;
+}
+
+.tri_sup_der {
+  position: relative;
+  width: 100%;
+  height: 0%;
+  border-top: 0px solid transparent;
+  border-left: 480px solid rgba(7, 33, 230, 0.508);
+  border-bottom: 50px solid transparent;
+}
+
+.tri_inf_izq {
+  position: absolute;
+  width: 100%;
+  height: 0%;
+  border-top: 50px solid transparent;
+  border-right: 410px solid rgba(230, 7, 7, 0.7);
+  border-bottom: 0px solid transparent;
+}
+
+.tri_inf_der {
+  width: 100%;
+  height: 0%;
+  border-top: 50px solid transparent;
+  border-left: 410px solid rgba(7, 33, 230, 0.508);
+  border-bottom: 0px solid transparent;
+}
+
