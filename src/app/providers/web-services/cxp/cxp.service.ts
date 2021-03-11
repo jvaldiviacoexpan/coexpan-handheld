@@ -10,8 +10,8 @@ export class CxpService {
     public http: HttpClient
   ) {}
 
-  // private urlRelease = '/API-coexpanoficial';
-  private urlRelease = '';
+  private urlRelease = '/api-coexpan-debug';
+  // private urlRelease = '';
 
   public cxpBrEnviarIngreso(data: any) {
     return new Promise((resolve, reject) => {

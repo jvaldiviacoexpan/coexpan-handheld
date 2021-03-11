@@ -48,12 +48,10 @@ export class BrIngresoComponent implements OnInit, AfterViewInit {
     let exi = 0;
     let err = 0;
 
-    registro.FechaScan = '2020/03/08';
+    registro.FechaScan = this.ObtenerFecha();
     registro.IdUsuario = 1;
-    // console.log(this.htmlCodigos.value);
     const arrayCadena = this.transformarArreglo(codigos);
     registro.CodBarras = arrayCadena;
-    // console.log(registro.CodBarras);
     if (registro.CodBarras.length === 0) {
       this.presentAlert(
         'Error', 'Debe Escanear para poder enviar los códigos', ''
@@ -79,8 +77,8 @@ export class BrIngresoComponent implements OnInit, AfterViewInit {
           <strong>Error: ${err} bob.<br></strong>`,
           ` `
         );
-      }, (err: any) => {
-        console.log(err);
+      }, (errr: any) => {
+        console.log(errr);
         this.dismiss();
       });
       this.htmlCodigos.value = '';
@@ -169,8 +167,51 @@ export class BrIngresoComponent implements OnInit, AfterViewInit {
   }
 
 
+  ObtenerFecha(): string {
+    const fechaDate = new Date();
+    let fechaString = '';
+    const anio = fechaDate.getFullYear();
+    let dia = '';
+    let mes = '';
+    let hora = '';
+    let minuto = '';
+    let segundo = '';
+
+    if (fechaDate.getDate() < 10) {
+        dia = `0${fechaDate.getDate()}`;
+    } else {
+        dia = fechaDate.getDate().toString();
+    }
+
+    if (fechaDate.getMonth() < 10) {
+        mes = `0${fechaDate.getMonth() + 1}`;
+    } else {
+        mes = (fechaDate.getMonth() + 1).toString();
+    }
+
+    if (fechaDate.getHours() < 10) {
+        hora = `0${fechaDate.getHours()}`;
+    } else {
+        hora = fechaDate.getHours().toString();
+    }
+
+    if (fechaDate.getMinutes() < 10) {
+        minuto = `0${fechaDate.getMinutes()}`;
+    } else {
+        minuto = fechaDate.getMinutes().toString();
+    }
+
+    if (fechaDate.getSeconds() < 10) {
+        segundo = `0${fechaDate.getSeconds()}`;
+    } else {
+        segundo = fechaDate.getSeconds().toString();
+    }
+
+    fechaString = `${anio}${mes}${dia} ${hora}:${minuto}:${segundo}`;
+
+    return fechaString;
+  }
+
   //#endregion
-
-
 
 }
