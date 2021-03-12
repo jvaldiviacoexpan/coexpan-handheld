@@ -1,8 +1,9 @@
-
 {
-  "/wscoexpan/*":{
-    "target": "http://localhost:44302/",
+  "/api/*": {
+    "target": "http://192.168.11.15:9091",
     "secure": false,
-    "logLevel": "debug"
+    "changeOrigin": true,
+    "logLevel": "debug",
+    "pathRewrite": {"^/api": "http://192.168.11.15:9091/api-coexpan-debug/"}
   }
 }

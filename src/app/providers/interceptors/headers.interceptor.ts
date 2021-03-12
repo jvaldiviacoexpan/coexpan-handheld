@@ -31,6 +31,7 @@ export class HeadersInterceptor implements HttpInterceptor {
       if (request.body.toString() === '[object FormData]') {
         console.log('Se envió un Archivo');
       } else {
+        console.log(request.url);
         request = request.clone({
                     setHeaders: {
                       Authorization: authorization,

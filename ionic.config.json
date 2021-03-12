@@ -5,5 +5,12 @@
     "cordova": {}
   },
   "type": "angular",
-  "id": "8afcbe41"
+  "id": "8afcbe41",
+  "proxies": [
+    {
+      "path": "/api",
+      "proxyUrl": "http://192.168.11.15:9091"
+    }
+  ]
+
 }
