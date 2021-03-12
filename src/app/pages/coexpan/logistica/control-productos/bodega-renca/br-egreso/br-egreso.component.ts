@@ -78,7 +78,7 @@ export class BrEgresoComponent implements OnInit, AfterViewInit {
           <strong>Error: ${err} bob.<br></strong>`,
           ` `
         );
-      }, (err) => {
+      }, (err: any) => {
         console.log(err);
         this.dismiss();
       });

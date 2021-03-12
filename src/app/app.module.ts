@@ -11,6 +11,7 @@ import { HeadersInterceptor } from './providers/interceptors/headers.interceptor
 import { HttpErrorInterceptor } from './providers/interceptors/httperror.interceptor';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,6 +27,10 @@ import { environment } from '../environments/environment';
     {
       provide: RouteReuseStrategy,
       useClass: IonicRouteStrategy
+    },
+    {
+      provide: LocationStrategy,
+      useClass: HashLocationStrategy,
     },
     {
       provide: HTTP_INTERCEPTORS,
