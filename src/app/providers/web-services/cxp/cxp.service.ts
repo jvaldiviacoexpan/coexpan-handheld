@@ -10,7 +10,7 @@ export class CxpService {
     public http: HttpClient
   ) {}
 
-  private urlRelease = '/api';
+  private urlRelease = '/api/';
   // private urlRelease = 'http://192.168.11.15:9091/api-coexpan-debug';
 
   public cxpBrEnviarIngreso(data: any) {
