@@ -13,5 +13,4 @@
     "logLevel": "debug",
     "pathRewrite": {"^/debug": "http://localhost:44302/wscoexpan"}
   }
-
 }

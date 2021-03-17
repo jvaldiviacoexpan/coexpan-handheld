@@ -11,8 +11,8 @@ export class CxpService {
   ) {}
 
   // private urlRelease = '/debug';
-  private urlRelease = '/api-coexpan-debug';
-  // private urlRelease = 'http://192.168.11.15:9091/api-coexpan-debug';
+  // private urlRelease = '/api-coexpan-debug';
+  private urlRelease = 'http://192.168.11.15:9091/api-coexpan-debug/wscoexpan';
 
 
   // logistica/scan-em
@@ -28,7 +28,6 @@ export class CxpService {
     });
   }
 
-
   public cxpBrEnviarIngreso(data: any) {
     return new Promise((resolve, reject) => {
       this.http.post(`${this.urlRelease}/logistica/bodegarenca/ionicingreso`, JSON.stringify(data))
@@ -41,7 +40,6 @@ export class CxpService {
     });
   }
 
-
   public cxpBrEnviarEgreso(data: any) {
     return new Promise((resolve, reject) => {
       this.http.post(`${this.urlRelease}/logistica/bodegarenca/ionicegreso`, JSON.stringify(data))
@@ -53,8 +51,6 @@ export class CxpService {
         });
     });
   }
-
-
 
 }
 

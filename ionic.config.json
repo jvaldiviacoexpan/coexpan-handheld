@@ -8,8 +8,12 @@
   "id": "8afcbe41",
   "proxies": [
     {
-      "path": "/api",
-      "proxyUrl": "http://192.168.11.15:9091/api-coexpan-debug/"
+      "path": "/debug",
+      "proxyUrl": "http://localhost:44302/wscoexpan"
+    },
+    {
+      "path": "/api-coexpan-debug",
+      "proxyUrl": "http://192.168.11.15:9091/api-coexpan-debug/wscoexpan"
     }
   ]
 
