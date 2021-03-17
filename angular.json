@@ -12,7 +12,7 @@
       "schematics": {},
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser:",
+          "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "allowedCommonJsDependencies": [
               "lodash"

@@ -62,3 +62,15 @@
   --backdrop-opacity: 0.6;
   --background: linear-gradient(90deg, rgb(30, 0, 201) 1%, rgb(248, 255, 248) 100%);
 }
+
+ion-content {
+  --ion-background-color: none;
+}
+
+ion-item {
+  --background: none;
+}
+
+ion-button {
+  --background: red;
+}

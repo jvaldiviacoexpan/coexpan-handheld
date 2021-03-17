@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-menu-renca',
   templateUrl: './menu-renca.component.html',
-  styleUrls: ['./menu-renca.component.css']
+  styleUrls: ['./menu-renca.component.scss']
 })
 export class MenuRencaComponent implements OnInit {
 

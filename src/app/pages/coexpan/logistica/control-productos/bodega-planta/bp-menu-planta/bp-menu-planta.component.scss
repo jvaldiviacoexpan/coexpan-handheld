@@ -1,0 +1,49 @@
+ion-header {
+  .toolbar {
+    --background: rgb(186, 96, 12, 0.5);
+    ion-title {
+      font-size: 25px;
+      --color: rgba(255, 255, 255, 0.666);
+      text-shadow: 1px 1px 2px rgb(186, 96, 12);
+      letter-spacing: 2px;
+    }
+  }
+}
+
+ion-footer {
+  /*Figuras*/
+  .tri_inf_izq {
+    position: absolute;
+    width: 100%;
+    height: 0%;
+    border-top: 50px solid transparent;
+    border-right: 410px solid rgb(186, 96, 12, 0.4);
+    border-bottom: 0px solid transparent;
+  }
+
+  .tri_inf_der {
+    @extend .tri_inf_izq;
+    position: relative;
+    border-left: 410px solid rgb(186, 96, 12, 0.5);
+  }
+}
+
+/*Componentes*/
+ion-content {
+  --background: none;
+}
+
+ion-grid.grid-1 {
+  height: 100%;
+  .row-1 {
+    height: 100%;
+    .btn-em {
+      --background: rgba(197, 191, 0, 0.9);
+      --color: white;
+    }
+    .btn-sm {
+      @extend .btn-em;
+      --background: rgba(250, 90, 90, 0.9);
+    }
+  }
+}

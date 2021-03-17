@@ -137,15 +137,6 @@ export class BrEgresoComponent implements OnInit, AfterViewInit {
     await alert.present();
   }
 
-  // async loadingData(str: string) {
-  //   this.loading = await this.loadingCtrl.create({
-  //     cssClass: 'my-custom-class',
-  //     message: str,
-  //   });
-  //   return this.loading.present();
-  // }
-
-
   async present() {
     this.isLoading = true;
     return await this.loadingCtrl.create({

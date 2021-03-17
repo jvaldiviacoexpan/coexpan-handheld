@@ -1,3 +1,4 @@
+/**/
 .full-height {
   height: 100%;
 }
@@ -37,4 +38,17 @@
   border-top: 50px solid transparent;
   border-left: 410px solid rgba(7, 33, 230, 0.508);
   border-bottom: 0px solid transparent;
+}
+
+ion-content {
+  --ion-background-color: none;
+}
+
+ion-button.btn-renca {
+  --opacity: 0.900;
+}
+
+ion-button.btn-central {
+  --background: rgba(186, 96, 12, 0.900);
+  --color: rgb(255, 255, 255);
 }

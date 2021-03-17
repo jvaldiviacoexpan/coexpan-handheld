@@ -7,6 +7,9 @@ import { BrIngresoComponent } from './bodega-renca/br-ingreso/br-ingreso.compone
 import { BrEgresoComponent } from './bodega-renca/br-egreso/br-egreso.component';
 import { PageBodegasComponent } from './page-bodegas/page-bodegas.component';
 import { MenuRencaComponent } from './bodega-renca/menu-renca/menu-renca.component';
+import { BpMenuPlantaComponent } from './bodega-planta/bp-menu-planta/bp-menu-planta.component';
+import { BpEntradaMercanciaComponent } from './bodega-planta/bp-entrada-mercancia/bp-entrada-mercancia.component';
+import { BpSalidaMercanciaComponent } from './bodega-planta/bp-salida-mercancia/bp-salida-mercancia.component';
 
 
 const routes: Routes = [{
@@ -22,7 +25,7 @@ const routes: Routes = [{
       component: PageBodegasComponent,
     },
 
-    // Bodega Renca
+    // #region Bodega Renca
     {
       path: 'br',
       component: MenuRencaComponent,
@@ -34,7 +37,22 @@ const routes: Routes = [{
     {
       path: 'br/egreso',
       component: BrEgresoComponent,
+    },
+    //#endregion
+    //#region Bodega Planta
+    {
+      path: 'bp',
+      component: BpMenuPlantaComponent,
+    },
+    {
+      path: 'bp/em',
+      component: BpEntradaMercanciaComponent,
+    },
+    {
+      path: 'bp/sm',
+      component: BpSalidaMercanciaComponent,
     }
+    //#endregion
   ]
 }];
 

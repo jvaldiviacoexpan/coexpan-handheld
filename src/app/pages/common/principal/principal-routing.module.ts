@@ -23,4 +23,7 @@ const routes: Routes = [{
 
 export class PrincipalRoutingModule {}
 
-export const routedComponents = [];
+export const routedComponents = [
+  PrincipalComponent,
+  InicioComponent,
+];

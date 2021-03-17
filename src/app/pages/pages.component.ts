@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 
-
 @Component({
   selector: 'app-pages',
   template: `<ion-router-outlet></ion-router-outlet>`

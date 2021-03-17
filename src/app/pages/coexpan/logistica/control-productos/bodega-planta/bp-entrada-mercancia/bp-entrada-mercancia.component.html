@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar class="toolbar">
+    <ion-title>Entrada de Mercancía</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid fixed>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="12">
+        <ion-item>
+          <ion-textarea #codigos rows="14"
+            placeholder="Escanea las bobinas para ingresar..."
+            (keyup)="textoCodigos(codigos.value)"
+            (keyup.enter)="revisionCodigos()">
+          </ion-textarea>
+        </ion-item>
+      </ion-col>
+      <ion-col size="12" class="ion-padding">
+          <ion-button #btnEnviar size="large" expand="full" class="btn-enviar"
+            (click)="revisionCodigos()">
+            Enviar
+          </ion-button>
+      </ion-col>
+      <ion-col size="6"></ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

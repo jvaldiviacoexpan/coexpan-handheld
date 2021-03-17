@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-page-control',
   templateUrl: './page-control.component.html',
-  styleUrls: ['./page-control.component.css']
+  styleUrls: ['./page-control.component.scss']
 })
 export class PageControlComponent implements OnInit {
 

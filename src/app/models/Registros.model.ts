@@ -1,7 +1,8 @@
 export class RegistrosModel {
-  FechaScan: string;
-  IdUsuario: number;
   CodBarras: string[];
+  FechaScan: string;
+  Bodega: number;
+  IdUsuario: number;
 }
 
 export class EstadoIngresoModel {
@@ -25,3 +26,5 @@ export class GetConsultaModel {
   Status: WsStatusV2Model;
   EstadoCodigos: EstadoIngresoModel[];
 }
+
+

@@ -1,9 +1,5 @@
 
-ion-grid {
-  height: 100%;
-}
-
-ion-row {
+.full-height {
   height: 100%;
 }
 
@@ -18,6 +14,7 @@ ion-row {
 }
 
 .tri_sup_der {
+  position: relative;
   width: 100%;
   height: 0%;
   border-top: 0px solid transparent;
@@ -35,10 +32,14 @@ ion-row {
 }
 
 .tri_inf_der {
-  position: relative;
   width: 100%;
   height: 0%;
   border-top: 50px solid transparent;
   border-left: 410px solid rgba(7, 33, 230, 0.508);
   border-bottom: 0px solid transparent;
 }
+
+ion-content {
+  --ion-background-color: none;
+}
+

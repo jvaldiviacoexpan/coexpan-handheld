@@ -1,0 +1,23 @@
+ion-content {
+  ion-row{
+    padding-top: 4px;
+  }
+  --background: none;
+  .btn-enviar {
+    --background: rgb(55, 55, 55);
+    --color: white;
+  }
+}
+
+ion-header {
+  .toolbar {
+    --background: rgb(197, 191, 0, 0.9);
+    --color: white;
+  }
+}
+
+ion-footer {
+  .toolbar {
+    --background: rgb(197, 191, 0, 0.9)
+  }
+}
