@@ -1,12 +1,7 @@
-ion-content {
-  ion-row{
-    padding-top: 4px;
-  }
-  --background: none;
-  .btn-enviar {
-    --background: rgb(55, 55, 55);
-    --color: white;
-  }
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@600&display=swap');
+
+*:not(ion-icon) {
+  font-family: 'Rubik', sans-serif!important;
 }
 
 ion-header {
@@ -16,8 +11,21 @@ ion-header {
   }
 }
 
-ion-footer {
-  .toolbar {
-    --background: rgb(197, 191, 0, 0.9)
+ion-content {
+  --background: none;
+  .ion-row-1{
+    padding-top: 4px;
+    .ion-item-1 {
+      background-color: rgb(232, 233, 233);
+      border-radius: 3%;
+    }
+  }
+  .ion-row-2{
+    .btn-1 {
+      --background: rgb(0, 0, 0);
+      --color: white;
+    }
   }
 }
+
+

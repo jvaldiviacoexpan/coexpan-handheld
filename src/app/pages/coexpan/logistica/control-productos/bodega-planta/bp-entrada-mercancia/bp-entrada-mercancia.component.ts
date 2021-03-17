@@ -1,7 +1,7 @@
 import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { IonButton, LoadingController, AlertController, IonTextarea } from '@ionic/angular';
 import { CxpService } from '../../../../../../providers/web-services/cxp/cxp.service';
-import { RegistrosModel } from '../../../../../../models/Registros.model';
+import { RegistrosModel, GetConsultaModel, GetConsultaModelV2, EstadoIngresoV2Model } from '../../../../../../models/Registros.model';
 
 @Component({
   selector: 'app-bp-entrada-mercancia',
@@ -41,7 +41,7 @@ export class BpEntradaMercanciaComponent implements OnInit, AfterViewInit {
   revisionCodigos() {
     this.arrayCod = this.transformarArreglo(this.codigos);
     if (this.arrayCod.length === 0) {
-      this.errorCodigos();
+      this.pstErrorCodigos();
     } else {
       this.pstConfirmarEnvio();
     }
@@ -53,16 +53,34 @@ export class BpEntradaMercanciaComponent implements OnInit, AfterViewInit {
     registros.FechaScan = this.obtenerFecha();
     registros.Bodega = 1;
     registros.IdUsuario = null;
+    let mensaje: GetConsultaModelV2<EstadoIngresoV2Model>;
+    let err = 0;
+    let suc = 0;
 
-    this.cxpService.cxpLogisticaEntradaMercancia(registros).then( (data) => {
-      console.log(data);
+    this.cxpService.cxpLogisticaEntradaMercancia(registros).then( (res) => {
+      console.log(res);
+      mensaje = JSON.parse(res.toString());
+      console.log(mensaje);
+      mensaje.EstadoCodigos.forEach(status => {
+        switch (status.ESTADO) {
+          case 'F': err += 1; break;
+          case 'T': suc += 1; break;
+          default: break; } });
+      this.dismiss();
+      this.pstAlert(
+        'Estado de Ingreso',
+        `<strong>Correctas: ${suc} bob.<br></strong><br>
+        <strong>Error: ${err} bob.<br></strong>`,
+          );
     }, (err) => {
       console.log(err);
+      this.dismiss();
     });
+    this.txtCodigos.value = '';
+    this.txtCodigos.setFocus();
   }
-
   //#region HERRAMIENTAS
-  async errorCodigos() {
+  async pstErrorCodigos() {
     const alert = await this.alertCtrl.create({
       header: 'Error',
       message: 'Ingrese 1 o más códigos para continuar...',
@@ -110,6 +128,24 @@ export class BpEntradaMercanciaComponent implements OnInit, AfterViewInit {
         }
       });
     });
+  }
+
+  async pstAlert(cab: string, cuerpo: string, subcab?: string) {
+    const alert = await this.alertCtrl.create({
+      cssClass: 'loading',
+      header: cab,
+      subHeader: subcab,
+      message: cuerpo,
+      buttons: [
+        {
+          text: 'OK',
+          handler: () => {
+            this.txtCodigos.setFocus();
+          }
+        }
+      ]
+    });
+    await alert.present();
   }
 
   async dismiss() {

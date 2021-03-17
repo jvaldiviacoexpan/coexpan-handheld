@@ -11,6 +11,12 @@ export class EstadoIngresoModel {
   MESSAGE: string;
 }
 
+export class EstadoIngresoV2Model {
+  ESTADO: string;
+  PROCESO: string;
+  MENSAJE: string;
+}
+
 export class WsStatusV2Model
 {
     ID: number;
@@ -25,6 +31,11 @@ export class WsStatusV2Model
 export class GetConsultaModel {
   Status: WsStatusV2Model;
   EstadoCodigos: EstadoIngresoModel[];
+}
+
+export class GetConsultaModelV2 <T> {
+  Status: WsStatusV2Model;
+  EstadoCodigos: T[];
 }
 
 

@@ -27,15 +27,15 @@ export class HttpErrorInterceptor implements HttpInterceptor {
       // aquí podrías agregar código que muestre el error en alguna parte fija de la pantalla.
         switch (error.status) {
           case 401:
-                this.presentToast(`Sesión expirada, vuelva a Iniciar Sesión`, 6000);
-                break;
+                this.presentToast(`Sesión expirada, vuelva a Iniciar Sesión.`, 5000); break;
+          case 404:
+                this.presentToast(`Solicitud HTTP (API) no encontrada.`, 5000); break;
           case 500:
-                this.presentToast(`Error en el sector Lógico del Servidor`, 6000);
-                break;
-
+                this.presentToast(`Error en el sector Lógico del Servidor.`, 5000); break;
+          case 504:
+                this.presentToast(`Servidor Desconectado.`, 5000); break;
           default:
-              this.presentToast(`${errorMessage}`, 6000);
-              break;
+              this.presentToast(`${errorMessage}`, 5000); break;
         }
         return throwError(errorMessage);
 

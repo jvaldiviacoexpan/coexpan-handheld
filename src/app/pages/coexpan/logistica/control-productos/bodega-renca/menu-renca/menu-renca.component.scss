@@ -1,26 +1,36 @@
+ion-header {
+  .toolbar {
+    --background: rgb(7, 33, 230, 0.5);
+    ion-title {
+      font-size: 25px;
+      --color: rgb(210, 218, 248);
+      text-shadow: 2px 2px 2px rgb(6, 21, 140);
+      letter-spacing: 2px;
+    }
+  }
+}
+
+ion-content {
+  .ion-grid-1 {
+    height: 100%;
+    .ion-row-1 {
+      height: 100%;
+      ion-button {
+        --opacity: 0.9;
+      }
+    }
+  }
+}
+
+ion-button.btn-renca {
+  --opacity: 0.900;
+}
 .full-height {
-  height: 100%;
+
 }
 
 
 /*Figuras*/
-.tri_sup_izq {
-  position: absolute;
-  width: 100%;
-  height: 0%;
-  border-top: 0px solid transparent;
-  border-right: 480px solid rgba(6, 4, 128, 0.7);
-  border-bottom: 50px solid transparent;
-}
-
-.tri_sup_der {
-  width: 100%;
-  height: 0%;
-  border-top: 0px solid transparent;
-  border-left: 480px solid rgba(7, 33, 230, 0.508);
-  border-bottom: 50px solid transparent;
-}
-
 .tri_inf_izq {
   position: absolute;
   width: 100%;

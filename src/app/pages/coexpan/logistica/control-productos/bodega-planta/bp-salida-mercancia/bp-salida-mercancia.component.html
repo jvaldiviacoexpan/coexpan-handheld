@@ -1,1 +1,30 @@
-<p>bp-salida-mercancia works!</p>
+<ion-header>
+  <ion-toolbar class="toolbar">
+    <ion-title>Salida de Mercancía</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid fixed>
+    <ion-row class="ion-row-1 ion-justify-content-center">
+      <ion-col size="12">
+        <ion-item class="ion-item-1">
+          <ion-textarea #codigos rows="13"
+            placeholder="Escanea las bobinas para enviar..."
+            (keyup)="textoCodigos(codigos.value)"
+            (keyup.enter)="revisionCodigos()">
+          </ion-textarea>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-row-2 ion-justify-content-center">
+      <ion-col size="12" class="ion-padding">
+          <ion-button #btnEnviar size="large" expand="full" class="btn-1"
+            (click)="revisionCodigos()">
+            Enviar
+          </ion-button>
+      </ion-col>
+  </ion-row>
+  </ion-grid>
+</ion-content>
+

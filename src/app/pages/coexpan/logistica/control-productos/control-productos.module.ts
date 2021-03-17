@@ -9,8 +9,6 @@ import { BpSalidaMercanciaComponent } from './bodega-planta/bp-salida-mercancia/
 import { BpMenuPlantaComponent } from './bodega-planta/bp-menu-planta/bp-menu-planta.component';
 
 
-
-
 @NgModule({
   imports: [
     IonicModule,

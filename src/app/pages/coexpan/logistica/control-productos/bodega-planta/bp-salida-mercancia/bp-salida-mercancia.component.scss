@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@600&display=swap');
+
+*:not(ion-icon) {
+  font-family: 'Rubik', sans-serif!important;
+}
+
+ion-header {
+  .toolbar {
+    --background: rgb(250, 90, 90, 0.9);
+    --color: white;
+  }
+}
+
+ion-content {
+  --background: none;
+  .ion-row-1{
+    padding-top: 4px;
+    .ion-item-1 {
+      background-color: rgb(232, 233, 233);
+      border-radius: 3%;
+    }
+  }
+  .ion-row-2{
+    .btn-1 {
+      --background: rgb(0, 0, 0);
+      --color: white;
+    }
+  }
+}
+

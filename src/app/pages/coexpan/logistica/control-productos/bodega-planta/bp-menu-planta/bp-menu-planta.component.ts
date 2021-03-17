@@ -17,7 +17,7 @@ export class BpMenuPlantaComponent implements OnInit {
   }
 
   pageSalidaMercancia() {
-
+    this.routes.navigateByUrl('pages/cxp/control/bp/sm');
   }
 
 }
