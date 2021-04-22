@@ -10,10 +10,9 @@ export class CxpService {
     public http: HttpClient
   ) {}
 
-  private urlRelease = '/debug';
+  // private urlRelease = '/debug';
   // private urlRelease = '/api-coexpan-debug';
-  // private urlRelease = 'http://192.168.11.15:9091/api-coexpan-debug/wscoexpan';
-  // private urlDebug = 'http://192.168.11.15:9091/api-coexpan-debug/wscoexpan';
+  private urlRelease = 'http://192.168.11.15:9091/api-coexpan-debug/wscoexpan';
 
   //#region PRINCIPAL
   //#endregion PRINCIPAL
