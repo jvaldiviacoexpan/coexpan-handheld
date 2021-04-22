@@ -14,9 +14,8 @@ export class HeadersInterceptor implements HttpInterceptor {
     let authorization = '';
     // console.log(request.body.toString());
     if (localStorage.getItem('token') !== null) {
-      authorization = `Bearer ${localStorage.getItem('token')}`;
+      authorization = localStorage.getItem('token');
     }
-
     console.log(request.method);
 
     if (request.method === 'GET') {

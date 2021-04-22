@@ -39,7 +39,24 @@
   border-bottom: 0px solid transparent;
 }
 
+ion-header {
+  ion-toolbar {
+    --background: none;
+    ion-title {
+      position: absolute;
+    }
+    ion-button {
+      position: absolute !important;
+      z-index: 100;
+    }
+  }
+}
+
 ion-content {
   --ion-background-color: none;
+}
+
+.btn-sand {
+  margin-left: 15px;
 }
 

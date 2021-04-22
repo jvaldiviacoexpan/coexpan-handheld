@@ -15,21 +15,10 @@ ion-content {
   --background: none;
   .ion-row-1{
     padding-top: 4px;
-    .ion-list {
-      background-color: rgb(232, 233, 233, 0.0);
+    .ion-item-1 {
+      background-color: rgb(232, 233, 233);
       border-radius: 3%;
-      ion-item {
-        --background: rgb(232, 233, 233, 0.8);
-
-      }
     }
-  }
-}
-
-ion-footer {
-  .toolbar {
-    --background: rgb(197, 191, 0, 0.5);
-    --color: white;
   }
   .ion-row-2{
     .btn-1 {

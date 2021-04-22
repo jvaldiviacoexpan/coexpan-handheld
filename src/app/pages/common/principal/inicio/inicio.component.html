@@ -1,21 +1,24 @@
 
 
 <ion-header class="ion-no-border">
-  <div class="tri_sup_izq"> </div>
-  <div class="tri_sup_der"></div>
-  <ion-grid fixed>
-    <ion-row class="ion-justify-content-center">
-      <ion-col size="10">
-        <img src="https://www.coexpan.com/wp-content/uploads/2019/02/logotipo-coexpan.png" alt="">
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+  <ion-toolbar class="toolbar">
+    <div class="tri_sup_izq"> </div>
+    <div class="tri_sup_der"></div>
+    <ion-title class="title ion-no-padding"><strong>Bodega Planta</strong></ion-title>
+    <ion-button class="btn-sand"
+      (click)="openMenu()" slot="start" fill="outline" color="black" color="warning">
+      <ion-icon color="warning" name="menu"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
 </ion-header>
 
 
 <ion-content fixed>
   <ion-grid fixed size="sx" class="full-height">
     <ion-row class="full-height ion-align-items-center">
+      <ion-col size="12">
+        <img src="https://www.coexpan.com/wp-content/uploads/2019/02/logotipo-coexpan.png" alt="Logo Coexpan">
+      </ion-col>
       <ion-col size="12">
         <ion-button color="medium" size="large" expand="block" (click)="pageInventario()">
           Inventario

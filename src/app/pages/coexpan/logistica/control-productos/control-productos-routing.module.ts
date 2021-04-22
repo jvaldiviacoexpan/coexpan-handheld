@@ -8,8 +8,10 @@ import { BrEgresoComponent } from './bodega-renca/br-egreso/br-egreso.component'
 import { PageBodegasComponent } from './page-bodegas/page-bodegas.component';
 import { MenuRencaComponent } from './bodega-renca/menu-renca/menu-renca.component';
 import { BpMenuPlantaComponent } from './bodega-planta/bp-menu-planta/bp-menu-planta.component';
-import { BpEntradaMercanciaComponent } from './bodega-planta/bp-entrada-mercancia/bp-entrada-mercancia.component';
+import { BpEtqEntradaMercanciaComponent } from './bodega-planta/bp-etq-entrada-mercancia/bp-etq-entrada-mercancia.component';
 import { BpSalidaMercanciaComponent } from './bodega-planta/bp-salida-mercancia/bp-salida-mercancia.component';
+import { BpEntradaMercanciaComponent } from './bodega-planta/bp-entrada-mercancia/bp-entrada-mercancia.component';
+import { BpEtqReimprimirComponent } from './bodega-planta/bp-etq-reimprimir/bp-etq-reimprimir.component';
 
 
 const routes: Routes = [{
@@ -45,6 +47,14 @@ const routes: Routes = [{
       component: BpMenuPlantaComponent,
     },
     {
+      path: 'bp/etqem',
+      component: BpEtqEntradaMercanciaComponent,
+    },
+    {
+      path: 'bp/reimprimiretq',
+      component: BpEtqReimprimirComponent,
+    },
+    {
       path: 'bp/em',
       component: BpEntradaMercanciaComponent,
     },
@@ -68,5 +78,12 @@ export const routedComponents = [
   PageControlComponent,
   BrIngresoComponent,
   BrEgresoComponent,
+  PageBodegasComponent,
+  MenuRencaComponent,
+  BpEtqEntradaMercanciaComponent,
+  BpEntradaMercanciaComponent,
+  BpSalidaMercanciaComponent,
+  BpMenuPlantaComponent,
+  BpEtqReimprimirComponent,
 ];
 

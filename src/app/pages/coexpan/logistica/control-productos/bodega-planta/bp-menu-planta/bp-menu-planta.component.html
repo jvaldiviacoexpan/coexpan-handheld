@@ -1,19 +1,35 @@
 <ion-header>
-  <ion-toolbar class="toolbar ion-text-center">
-    <ion-title class="title"><strong>Bodega Planta</strong></ion-title>
+  <ion-toolbar class="toolbar">
+    <ion-title class="title ion-no-padding"><strong>Bodega Planta</strong></ion-title>
+    <ion-button class="btn-sand"
+      (click)="openMenu()" slot="start" shape="clear" fill="clear" color="warning">
+    <ion-icon name="menu-outline"></ion-icon>
+    </ion-button>
   </ion-toolbar>
 </ion-header>
 
-<ion-content fixed>
+
+<ion-content id="contentt" fixed>
   <ion-grid fixed size="sx" class="grid-1">
     <ion-row class="row-1 ion-align-items-center">
       <ion-col size="12">
-        <ion-button class="btn-em" size="large" expand="block" (click)="pageEntradaMercancia()">
-          Entrada de Mercancia
+        <ion-button class="btn-etq" size="large" expand="block" (click)="pageEtqEntradaMercancia()">
+          Etiqueta Entr. Merc.
         </ion-button>
       </ion-col>
       <ion-col size="12">
-        <ion-button class="btn-sm" size="large" expand="block" (click)="pageSalidaMercancia()">
+        <ion-button class="btn-reetq" size="large" expand="block" (click)="pageReimprimirEtiqueta()">
+          Reimprimir Etiqueta
+        </ion-button>
+      </ion-col>
+      <ion-col size="12">
+        <ion-button class="btn-em" size="large" expand="block" (click)="pageEntradaMercancia()">
+          Entrada Mercancia
+        </ion-button>
+      </ion-col>
+      <ion-col size="12">
+        <ion-button class="btn-sm" disabled size="large" expand="block"
+        (click)="pageSalidaMercancia()">
           Salida de Mercancia
         </ion-button>
       </ion-col>

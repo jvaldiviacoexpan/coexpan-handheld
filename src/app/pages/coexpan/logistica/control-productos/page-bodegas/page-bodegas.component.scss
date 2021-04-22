@@ -3,7 +3,6 @@
   height: 100%;
 }
 
-
 /*Figuras*/
 .tri_sup_izq {
   position: absolute;
@@ -15,6 +14,7 @@
 }
 
 .tri_sup_der {
+  position: relative;
   width: 100%;
   height: 0%;
   border-top: 0px solid transparent;
@@ -51,4 +51,19 @@ ion-button.btn-renca {
 ion-button.btn-central {
   --background: rgba(186, 96, 12, 0.900);
   --color: rgb(255, 255, 255);
+}
+
+
+ion-header {
+  ion-toolbar {
+    --background: none;
+    ion-title {
+      position: absolute;
+    }
+    ion-button {
+      margin-left: 15px;
+      position: absolute !important;
+      z-index: 100;
+    }
+  }
 }

@@ -1,10 +1,12 @@
+
+
 ion-header {
   .toolbar {
-    --background: rgb(186, 96, 12, 0.5);
+    --background: rgba(104, 104, 104, 0.7);
     ion-title {
       font-size: 25px;
       --color: rgba(255, 255, 255, 0.666);
-      text-shadow: 2px 2px 2px rgb(186, 96, 12);
+      text-shadow: 2px 2px 2px rgb(75, 75, 75);
       letter-spacing: 2px;
     }
   }
@@ -35,8 +37,15 @@ ion-content {
     height: 100%;
     .row-1 {
       height: 100%;
+      .btn-etq {
+        --background: rgba(87, 87, 87, 0.9);
+        --color: white;
+      }
+      .btn-reetq {
+        @extend .btn-etq
+      }
       .btn-em {
-        --background: rgba(197, 191, 0, 0.9);
+        --background: rgba(10, 157, 2, 0.9);
         --color: white;
       }
       .btn-sm {
@@ -45,6 +54,11 @@ ion-content {
       }
     }
   }
+}
+
+.btn-sand {
+  padding-left: 0px;
+  padding-right: 0px;
 }
 
 

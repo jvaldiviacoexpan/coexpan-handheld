@@ -1,7 +1,8 @@
 import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
-import { IonButton, LoadingController, AlertController, IonTextarea } from '@ionic/angular';
+import { IonButton, LoadingController, AlertController, IonTextarea, ToastController } from '@ionic/angular';
 import { CxpService } from '../../../../../../providers/web-services/cxp/cxp.service';
-import { RegistrosModel, GetConsultaModel, GetConsultaModelV2, EstadoIngresoV2Model } from '../../../../../../models/Registros.model';
+import { GetRequestModel, PalletBobinasModel, SapPostModel, StsPalletModel, UserSapModel } from '../../../../../../models/Registros.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-bp-entrada-mercancia',
@@ -10,23 +11,38 @@ import { RegistrosModel, GetConsultaModel, GetConsultaModelV2, EstadoIngresoV2Mo
 })
 export class BpEntradaMercanciaComponent implements OnInit, AfterViewInit {
 
+  constructor(
+    private alertCtrl: AlertController,
+    private loadingCtrl: LoadingController,
+    private toastController: ToastController,
+    private cxpService: CxpService,
+    private routes: Router,
+  ) { }
+
+  //#region VARIABLES
+  pallets: PalletBobinasModel[] = [];
   codigos: string;
   arrayCod: string[];
   loading: any;
   isLoading = false;
+  //#endregion VARIABLES
+  //#region VIEWCHILD
   @ViewChild('btnEnviar') btnEnviar: IonButton;
   @ViewChild('codigos') txtCodigos: IonTextarea;
-
-  constructor(
-    private alertCtrl: AlertController,
-    private loadingCtrl: LoadingController,
-    private cxpService: CxpService,
-  ) { }
+  //#endregion VIEWCHILD
+  //#region MODEL HTML
+  txtarea = {
+    spinner: false,
+  };
+  //#endregion MODEL HTML
 
   ngOnInit(): void { }
 
   ngAfterViewInit() {
     this.btnEnviar.disabled = true;
+    setTimeout(() => {
+      this.txtCodigos.setFocus();
+    }, 10000);
   }
 
 
@@ -38,83 +54,189 @@ export class BpEntradaMercanciaComponent implements OnInit, AfterViewInit {
     console.log(this.codigos);
   }
 
-  revisionCodigos() {
-    this.arrayCod = this.transformarArreglo(this.codigos);
-    if (this.arrayCod.length === 0) {
-      this.pstErrorCodigos();
+  // revisionCodigos() {
+  //   this.arrayCod = this.transformarArreglo(this.codigos);
+  //   if (this.arrayCod.length === 0) {
+  //     this.pstErrorCodigos();
+  //   } else {
+  //     this.pstConfirmarEnvio();
+  //   }
+  // }
+
+  public obtenerDatosPallet(codbarramulti: string) {
+    const cbm = codbarramulti.trim();
+    if (cbm.length <= 0) {
+      this.messageToast('Escanée un Código de Pallet');
+      return;
+    }
+    this.txtCodigos.disabled = true;
+    this.txtCodigos.value = '';
+    this.txtarea.spinner = true;
+    console.log(cbm);
+    let request: GetRequestModel<PalletBobinasModel>;
+    this.cxpService.cxpLogisticaGetPalletBobinas(cbm).then(datos => {
+      request = JSON.parse(datos.toString());
+
+      this.txtarea.spinner = false;
+      console.log(request);
+      if (request.Status.STATUS === 'T') {
+        if (this.palletRepetido(request.Objeto.Pallet.CODBAR_MULTI)) {
+          this.messageToast('El Pallet ya se encuentra en la lista.');
+        } else {
+          this.pallets.push(request.Objeto);
+        }
+      } else {
+        this.messageToast(request.Status.MESSAGE);
+      }
+      this.txtCodigos.disabled = false;
+      setTimeout(() => {
+        this.txtCodigos.setFocus();
+      }, 100);
+      this.existenitems();
+    }, (err) => {
+      console.log(err);
+    });
+  }
+
+  public eliminarItem(nropallet: string) {
+    for (let i = 0; i < this.pallets.length; i++) {
+      if (this.pallets[i].Pallet.CODBAR_MULTI === nropallet) {
+        this.pallets.splice(i, 1);
+        this.messageToast(`Pallet ${nropallet} Quitado de la lista.`);
+        this.existenitems();
+      }
+    }
+    console.log(`Pallet Eliminado: ${nropallet}`);
+  }
+
+  public palletRepetido(nropallets: string): boolean {
+    let existe = false;
+    this.pallets.forEach(pt => {
+      if (pt.Pallet.CODBAR_MULTI === nropallets) {existe = true; }
+    });
+    return existe;
+  }
+
+  public enviarEntradaMercancia() {
+    const usersap: UserSapModel = JSON.parse(localStorage.getItem('usersap'));
+    const postsap: SapPostModel<PalletBobinasModel[]> = new SapPostModel<PalletBobinasModel[]>();
+    postsap.usuario = usersap.User;
+    postsap.token = usersap.Token;
+    postsap.objeto = this.pallets;
+    let palletExito = 0;
+    let palletError = 0;
+    this.showLoading();
+    // console.log(postsap);
+    // console.log(this.pallets);
+    this.cxpService.cxpLogisticaenviarEntradaMercancia(postsap).then((data) => {
+      this.dismissLoading();
+      let status: GetRequestModel<StsPalletModel[]> = new GetRequestModel<StsPalletModel[]>();
+      status = JSON.parse(data.toString());
+      if (status.Status.STATUS === 'T') {
+        status.Objeto.forEach(pallet => {
+          if (pallet.Estado === 'T') {
+            palletExito += 1;
+          } else {
+            palletError += 1;
+          }
+        });
+        if (palletError > 0) {
+          this.messageToast('Error al registrar estos Pallet.');
+        } else {
+          this.messageToast('Pallet(s) registrado(s) en SAP Business One con éxito.');
+          this.pallets = [];
+        }
+      }
+      else {
+        this.messageToast('sesión expirada, vuelva a iniciar sesión.');
+        localStorage.removeItem('usersap');
+        this.routes.navigateByUrl('pages/login');
+      }
+      this.existenitems();
+      console.log(data);
+    }, (err) => {
+      this.existenitems();
+      this.dismissLoading();
+      this.messageToast(err);
+    });
+  }
+
+
+  //#region Informacion Pallet
+  async infoItem(nropallet: string) {
+    let pallet: PalletBobinasModel = new PalletBobinasModel();
+    pallet = this.obtenerPallet(nropallet);
+    const str = this.generarListaBobinas(pallet);
+    const alert = await this.alertCtrl.create({
+      cssClass: 'alert-palletybobinas',
+      header: `DETALLE PALLET ${nropallet}`,
+      message: str,
+    });
+    await alert.present();
+  }
+
+  obtenerPallet(nroPallet: string): PalletBobinasModel {
+    let rtnPallet: PalletBobinasModel = new PalletBobinasModel();
+    this.pallets.forEach(pallet => {
+      if (pallet.Pallet.CODBAR_MULTI === nroPallet) {
+        rtnPallet = pallet;
+      }
+    });
+    return rtnPallet;
+  }
+
+
+  generarListaBobinas(pallet: PalletBobinasModel): string {
+    let str = `
+    <ion-list>
+          <ion-item>
+            <ion-label>OF - ${pallet.Pallet.ORDEN_FAB.substr(5, 20)}</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label>CLIENTE - ${pallet.Pallet.CLIENTE}</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label>PALLET ${pallet.Pallet.CORRELATIVO}</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label>KG BRUTO - ${pallet.Pallet.PESO_BRUTO}</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label>KG NETO ${pallet.Pallet.PESO_NETO}</ion-label>
+          </ion-item>
+        </ion-list>
+        <br>
+        <div><ion-label>Bobina(s)</ion-label></div></br>`;
+    pallet.Bobinas.forEach(bob => {
+      const strconst = `
+      <ion-label>N° Bobina ${bob.CODBAR_BOB}</ion-label>
+      <ul>
+        <li>Producto: - ${bob.NOM_PRODUCTO}</li>
+        <li>Medidas - ${bob.MEDIDAS}</li>
+        <li>Kg Bruto - ${bob.PESO_BRUTO}</li>
+        <li>Kg Neto - ${bob.PESO_NETO}</li>
+        <li>Valor Resina - $${bob.PRECIO_RESINA}</li>
+        <li>Valor Total - $${bob.VALOR_TOTAL}</li>
+      </ul>
+        </br>`;
+      str += strconst;
+    });
+    return str;
+  }
+  //#endregion Informacion Pallet
+
+  //#region HERRAMIENTAS
+  private existenitems(): boolean {
+    if (this.pallets.length > 0) {
+      this.btnEnviar.disabled = false;
+      return true;
     } else {
-      this.pstConfirmarEnvio();
+      this.btnEnviar.disabled = true;
+      return false;
     }
   }
 
-  enviarCodigos() {
-    const registros: RegistrosModel = new RegistrosModel();
-    registros.CodBarras = this.arrayCod;
-    registros.FechaScan = this.obtenerFecha();
-    registros.Bodega = 1;
-    registros.IdUsuario = null;
-    let mensaje: GetConsultaModelV2<EstadoIngresoV2Model>;
-    let err = 0;
-    let suc = 0;
-
-    this.cxpService.cxpLogisticaEntradaMercancia(registros).then( (res) => {
-      console.log(res);
-      mensaje = JSON.parse(res.toString());
-      console.log(mensaje);
-      mensaje.EstadoCodigos.forEach(status => {
-        switch (status.ESTADO) {
-          case 'F': err += 1; break;
-          case 'T': suc += 1; break;
-          default: break; } });
-      this.dismiss();
-      this.pstAlert(
-        'Estado de Ingreso',
-        `<strong>Correctas: ${suc} bob.<br></strong><br>
-        <strong>Error: ${err} bob.<br></strong>`,
-          );
-    }, (err) => {
-      console.log(err);
-      this.dismiss();
-    });
-    this.txtCodigos.value = '';
-    this.txtCodigos.setFocus();
-  }
-  //#region HERRAMIENTAS
-  async pstErrorCodigos() {
-    const alert = await this.alertCtrl.create({
-      header: 'Error',
-      message: 'Ingrese 1 o más códigos para continuar...',
-      buttons: [{ text: 'Ok' }]
-    });
-    await alert.present();
-    this.btnEnviar.disabled = true;
-    this.txtCodigos.value = '';
-  }
-
-  async pstConfirmarEnvio() {
-    const alert = await this.alertCtrl.create({
-      cssClass: 'loading',
-      header: 'Confirmar Envío',
-      message: 'Desea enviar los <strong>Códigos de Bobinas</strong> ?',
-      buttons: [
-        {
-          text: 'Cancelar',
-          role: 'cancel',
-          handler: () => {
-            console.log('no se envió :(');
-          }
-        }, {
-          text: 'Ok',
-          handler: () => {
-            this.enviarCodigos();
-          }
-        }
-      ]
-    });
-    await alert.present();
-  }
-
-  async present() {
+  async showLoading() {
     this.isLoading = true;
     return await this.loadingCtrl.create({
       cssClass: 'loading',
@@ -130,27 +252,17 @@ export class BpEntradaMercanciaComponent implements OnInit, AfterViewInit {
     });
   }
 
-  async pstAlert(cab: string, cuerpo: string, subcab?: string) {
-    const alert = await this.alertCtrl.create({
-      cssClass: 'loading',
-      header: cab,
-      subHeader: subcab,
-      message: cuerpo,
-      buttons: [
-        {
-          text: 'OK',
-          handler: () => {
-            this.txtCodigos.setFocus();
-          }
-        }
-      ]
-    });
-    await alert.present();
-  }
-
-  async dismiss() {
+  async dismissLoading() {
     this.isLoading = false;
     return await this.loadingCtrl.dismiss().then(() => console.log('dismissed'));
+  }
+
+  async messageToast(msj: string) {
+    const toast = await this.toastController.create({
+      message: msj,
+      duration: 2000
+    });
+    toast.present();
   }
 
   obtenerFecha(): string {
@@ -192,7 +304,40 @@ export class BpEntradaMercanciaComponent implements OnInit, AfterViewInit {
     const arrayClean = [...new Set(arrayCadenaClean)];
     return arrayClean;
   }
-  //#endregion
 
+  removerPallet(codpallet: string){
+    for (let i = 0; i < this.pallets.length; i++) {
+      if (this.pallets[i].Pallet.CODBAR_MULTI === codpallet) {
+        this.pallets.splice(i, 1);
+        this.existenitems();
+      }
+    }
+  }
+
+
+  async AlertaEnviarEntradaSap() {
+    const alert = await this.alertCtrl.create({
+      cssClass: 'my-custom-class',
+      header: 'SAP Business One.',
+      message: 'Enviar <strong>Entrada(s) de Mercancia(s)</strong>?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            // console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Continuar',
+          handler: () => {
+            this.enviarEntradaMercancia();
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
+  //#endregion HERRAMIENTAS
 
 }

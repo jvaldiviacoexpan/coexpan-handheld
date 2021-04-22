@@ -1,0 +1,40 @@
+<ion-header class="ion-no-border">
+  <div class="tri_sup_izq"> </div>
+  <div class="tri_sup_der"></div>
+</ion-header>
+
+
+<ion-content fixed>
+  <ion-grid fixed size="sx" class="full-height">
+    <ion-row class="full-height ion-align-items-center">
+      <ion-col size="12">
+        <ion-item>
+          <img class="imagen" src="https://www.coexpan.com/wp-content/uploads/2019/02/logotipo-coexpan.png" alt="">
+        </ion-item>
+      </ion-col>
+      <ion-col size="12">
+        <ion-item class="input">
+          <ion-label position="floating">Usuario SAP BO</ion-label>
+          <ion-input #user (keyup)="checkUserPassword()"  ></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col size="12">
+        <ion-item class="input">
+          <ion-label position="floating">Contraseña</ion-label>
+          <ion-input #pass type="password" (keyup)="checkUserPassword()" (keyup.enter)="registrar()"></ion-input>
+        </ion-item>
+        <ion-col size="12">
+          <ion-button type="submit" #btnEnviar color="warning" (click)="registrar()" expand="block" shape="round">
+            <span *ngIf="!spinner">Ingresar</span>
+            <ion-spinner *ngIf="spinner" name="crescent"></ion-spinner>
+          </ion-button>
+        </ion-col>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+<ion-footer class="ion-no-border">
+  <div class="tri_inf_izq"> </div>
+  <div class="tri_inf_der"></div>
+</ion-footer>

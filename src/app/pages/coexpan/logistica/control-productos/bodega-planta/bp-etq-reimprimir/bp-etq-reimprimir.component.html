@@ -3,13 +3,13 @@
     <ion-grid fixed>
       <ion-row class="ion-row-1 ion-justify-content-center">
         <ion-col size="12">
-          <ion-title>Entrada de Mercancía</ion-title>
+          <ion-title>Reimpresión Etiqueta</ion-title>
         </ion-col>
         <ion-col size="12">
           <ion-item class="ion-item-1">
             <ion-textarea #codigos rows="1"
               disabled="false"
-              placeholder="Escanea Códido de Pallet..."
+              placeholder="Códido de Pallet o Bobina..."
               (keyup.enter)="obtenerDatosPallet(codigos.value)">
             </ion-textarea>
             <ion-spinner *ngIf="txtarea.spinner"  style="margin-top: 10px;" name="bubbles"></ion-spinner>
@@ -30,14 +30,14 @@
           </ion-item>
           <ion-item-sliding *ngFor="let pt of pallets" >
             <ion-item>
-              <ion-label>OF: {{pt.Pallet.ORDEN_FAB|number}} - N° Pallet: {{pt.Pallet.CORRELATIVO}}</ion-label>
-              <ion-button #btnpallet (click)="infoItem(pt.Pallet.CODBAR_MULTI)"
+              <ion-label>OF: {{pt.ORDEN_FAB|number}} - N° Pallet: {{pt.CORRELATIVO}}</ion-label>
+              <ion-button #btnpallet (click)="infoItem(pt.CODBAR_MULTI)"
               expand="block" color="primary" shape="round">
                 Info
               </ion-button>
             </ion-item>
             <ion-item-options side="end">
-              <ion-item-option (click)="eliminarItem(pt.Pallet.CODBAR_MULTI)">Borrar</ion-item-option>
+              <ion-item-option (click)="eliminarItem(pt.CODBAR_MULTI)">Borrar</ion-item-option>
             </ion-item-options>
           </ion-item-sliding>
         </ion-list>
@@ -52,7 +52,7 @@
       <ion-row class="ion-row-2 ion-justify-content-center">
         <ion-col size="12">
           <ion-button #btnEnviar size="large" expand="block" class="btn-1"
-            (click)="AlertaEnviarEntradaSap()">
+            (click)="imprimirEtiquetas()">
             Enviar
           </ion-button>
         </ion-col>

@@ -1,12 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@600&display=swap');
 
+
 *:not(ion-icon) {
   font-family: 'Rubik', sans-serif!important;
 }
 
 ion-header {
   .toolbar {
-    --background: rgb(197, 191, 0, 0.9);
+    --background: rgba(0, 145, 197, 0.5);
     --color: white;
   }
 }
@@ -28,12 +29,12 @@ ion-content {
 
 ion-footer {
   .toolbar {
-    --background: rgb(197, 191, 0, 0.5);
+    --background: rgba(0, 0, 0, 0);
     --color: white;
   }
   .ion-row-2{
     .btn-1 {
-      --background: rgb(0, 0, 0);
+      --background: rgba(0, 75, 102, 0.99);
       --color: white;
     }
   }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-page-bodegas',
@@ -8,7 +9,10 @@ import { Router } from '@angular/router';
 })
 export class PageBodegasComponent implements OnInit {
 
-  constructor(private route: Router) { }
+  constructor(
+    private route: Router,
+    private menu: MenuController,
+  ) { }
 
   ngOnInit(): void {}
 
@@ -18,6 +22,10 @@ export class PageBodegasComponent implements OnInit {
 
   pageMenuPlanta() {
     this.route.navigateByUrl('pages/cxp/control/bp');
+  }
+
+  openMenu() {
+    this.menu.toggle();
   }
 
 }
