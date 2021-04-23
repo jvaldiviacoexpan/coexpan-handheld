@@ -13,8 +13,9 @@ export class CxpService {
   // private urlRelease = '/debug';
   // private urlRelease = '/prueba';
   // private urlRelease = '/release';
-  private urlRelease = '/api-coexpan-debug';
-  // private urlRelease = 'http://192.168.11.15:9094/api-coexpan/debug/wscoexpan';
+  // private urlRelease = '/api-coexpan-debug';
+  private urlRelease = 'http://192.168.11.15:9094/api-coexpan/debug/wscoexpan';
+  // private urlRelease = 'http://localhost:44302/wscoexpan';
 
   //#region PRINCIPAL
   //#endregion PRINCIPAL
