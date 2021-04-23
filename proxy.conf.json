@@ -14,14 +14,14 @@
     "pathRewrite": {"^/debug": "http://localhost:44302/wscoexpan"}
   },
   "/prueba/*":{
-    "target": "http://192.168.11.15:9094/api-coexpan/debug/",
+    "target": "http://192.168.11.15:9094/",
     "secure": false,
     "changeOrigin": true,
     "logLevel": "debug",
     "pathRewrite": {"^/prueba": "http://192.168.11.15:9094/api-coexpan/debug/wscoexpan"}
   },
   "/release/*":{
-    "target": "http://192.168.11.15:9094/api-coexpan/v1/",
+    "target": "http://192.168.11.15:9094/",
     "secure": false,
     "changeOrigin": true,
     "logLevel": "debug",
