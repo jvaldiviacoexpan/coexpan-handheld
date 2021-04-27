@@ -80,6 +80,7 @@ export class BobinaModel {
   ORDEN_FAB: string;
   NRO_BOBINA: number;
   CLIENTE: string;
+  FECHA: string;
   PRECIO_RESINA: number;
   VALOR_TOTAL: number;
   CODBAR_MULTI: string;

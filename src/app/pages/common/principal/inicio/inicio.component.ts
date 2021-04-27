@@ -33,6 +33,7 @@ export class InicioComponent implements OnInit {
   }
 
   obtenerToken(id: string){
+    localStorage.removeItem('token');
     let rq = new GetRequestModel<string>();
     this.cxpService.obtenerToken(id).then(data => {
       rq = JSON.parse(data.toString());

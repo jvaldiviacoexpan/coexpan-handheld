@@ -54,16 +54,9 @@ export class BpEntradaMercanciaComponent implements OnInit, AfterViewInit {
     console.log(this.codigos);
   }
 
-  // revisionCodigos() {
-  //   this.arrayCod = this.transformarArreglo(this.codigos);
-  //   if (this.arrayCod.length === 0) {
-  //     this.pstErrorCodigos();
-  //   } else {
-  //     this.pstConfirmarEnvio();
-  //   }
-  // }
 
   public obtenerDatosPallet(codbarramulti: string) {
+    //#region VARIABLES
     const cbm = codbarramulti.trim();
     if (cbm.length <= 0) {
       this.messageToast('Escanée un Código de Pallet');
@@ -74,9 +67,9 @@ export class BpEntradaMercanciaComponent implements OnInit, AfterViewInit {
     this.txtarea.spinner = true;
     console.log(cbm);
     let request: GetRequestModel<PalletBobinasModel>;
+    //#endregion VARIABLES
     this.cxpService.cxpLogisticaGetPalletBobinas(cbm).then(datos => {
       request = JSON.parse(datos.toString());
-
       this.txtarea.spinner = false;
       console.log(request);
       if (request.Status.STATUS === 'T') {

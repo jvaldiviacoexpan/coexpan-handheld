@@ -6,12 +6,12 @@
     "logLevel": "debug",
     "pathRewrite": {"^/api-coexpan-debug": "http://192.168.11.15:9091/api-coexpan-debug/wscoexpan"}
   },
-  "/debug/*":{
+  "/debugvs/*":{
     "target": "http://localhost:44302/",
     "secure": false,
     "changeOrigin": true,
     "logLevel": "debug",
-    "pathRewrite": {"^/debug": "http://localhost:44302/wscoexpan"}
+    "pathRewrite": {"^/debugvs": "http://localhost:44302/wscoexpan"}
   },
   "/prueba/*":{
     "target": "http://192.168.11.15:9094/",
