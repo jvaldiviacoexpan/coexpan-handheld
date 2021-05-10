@@ -53,7 +53,7 @@ export class BpEtqEntradaMercanciaComponent implements OnInit, AfterViewInit {
             this.comprobarEstadoImpresora(ip);
             break;
           } else {
-            this.alertselectimpresora();
+            this.obtenerImpresoras();
             break;
           }
         case '"3"': this.pstAlert('Error!', 'Carga de información cancelada.'); break;

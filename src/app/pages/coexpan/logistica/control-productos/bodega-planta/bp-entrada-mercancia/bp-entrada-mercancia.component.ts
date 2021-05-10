@@ -119,8 +119,6 @@ export class BpEntradaMercanciaComponent implements OnInit, AfterViewInit {
     let palletExito = 0;
     let palletError = 0;
     this.showLoading();
-    // console.log(postsap);
-    // console.log(this.pallets);
     this.cxpService.cxpLogisticaenviarEntradaMercancia(postsap).then((data) => {
       this.dismissLoading();
       let status: GetRequestModel<StsPalletModel[]> = new GetRequestModel<StsPalletModel[]>();
@@ -164,6 +162,7 @@ export class BpEntradaMercanciaComponent implements OnInit, AfterViewInit {
       cssClass: 'alert-palletybobinas',
       header: `DETALLE PALLET ${nropallet}`,
       message: str,
+      buttons: ['OK']
     });
     await alert.present();
   }
@@ -180,6 +179,7 @@ export class BpEntradaMercanciaComponent implements OnInit, AfterViewInit {
 
 
   generarListaBobinas(pallet: PalletBobinasModel): string {
+    //#region HTML
     let str = `
     <ion-list>
           <ion-item>
@@ -200,6 +200,7 @@ export class BpEntradaMercanciaComponent implements OnInit, AfterViewInit {
         </ion-list>
         <br>
         <div><ion-label>Bobina(s)</ion-label></div></br>`;
+    //#endregion HTML
     pallet.Bobinas.forEach(bob => {
       const strconst = `
       <ion-label>N° Bobina ${bob.CODBAR_BOB}</ion-label>
