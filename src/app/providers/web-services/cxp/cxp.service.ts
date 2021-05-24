@@ -15,6 +15,7 @@ export class CxpService {
   // private urlRelease = '/prueba';
   // private urlRelease = '/release';
   // private urlRelease = '/api-coexpan-debug';
+
   // private urlRelease = 'http://localhost:44302/wscoexpan';
   // private urlRelease = 'http://192.168.11.15:9094/api-coexpan/debug/wscoexpan';
   //#endregion URL API's
@@ -86,6 +87,7 @@ export class CxpService {
     });
   }
 
+
   public cxpLogisticaGetPalletBobinas(codbarramulti: string) {
     return new Promise((resolve, reject) => {
       this.http.post(`${this.urlRelease}/logistica/scanner/obtenerpallet`, JSON.stringify(codbarramulti))
@@ -97,6 +99,7 @@ export class CxpService {
     });
   }
 
+
   public cxpLogisticaenviarEntradaMercancia(datos: any) {
     return new Promise((resolve, reject) => {
       this.http.post(`${this.urlRelease}/logistica/scanner/postem`, JSON.stringify(datos))
@@ -104,6 +107,19 @@ export class CxpService {
           resolve(res);
         }, (err) => {
           reject(err);
+        });
+    });
+  }
+
+
+  public cxpLogisticaEliminarEtiquetaPallet(data: any){
+    return new Promise((resolve, reject) => {
+      this.http.post(`${this.urlRelease}/logistica/scanner/eliminaretiqueta`, JSON.stringify(data))
+        .subscribe( res => {
+          resolve(res);
+        }, (err) => {
+          reject(err);
+          console.log(err);
         });
     });
   }
@@ -139,6 +155,18 @@ export class CxpService {
   public cxpLogisticaLogin(data: any) {
     return new Promise((resolve, reject) => {
       this.http.post(`${this.urlRelease}/security/login`, JSON.stringify(data))
+        .subscribe( res => {
+          resolve(res);
+        }, (err) => {
+          reject(err);
+          console.log(err);
+        });
+    });
+  }
+
+  public cxpLogisticaExtrusionLogin(data: any) {
+    return new Promise((resolve, reject) => {
+      this.http.post(`${this.urlRelease}/logistica/scanner/login`, JSON.stringify(data))
         .subscribe( res => {
           resolve(res);
         }, (err) => {

@@ -150,5 +150,15 @@ export class ImpresoraEtiquetaPalletModel {
   IpZebra: string;
   Pallets: PalletModel[];
 }
+
+export class StatusSqlModel {
+  Objeto: StatusDtModel;
+  Status: WsStatusV2Model;
+}
+
+export class StatusDtModel {
+  STATUS: number;
+  MESSAGE: string;
+}
 //#endregion
 

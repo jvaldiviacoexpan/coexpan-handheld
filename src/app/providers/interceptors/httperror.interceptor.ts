@@ -2,7 +2,7 @@ import { Router } from '@angular/router';
 import {Injectable} from '@angular/core';
 import {HttpHandler, HttpRequest, HttpInterceptor} from '@angular/common/http';
 import {throwError} from 'rxjs';
-import {catchError, timeout} from 'rxjs/internal/operators';
+import {catchError } from 'rxjs/operators';
 import { ToastController } from '@ionic/angular';
 import { CxpService } from '../web-services/cxp/cxp.service';
 import { GetRequestModel } from '../../models/Registros.model';

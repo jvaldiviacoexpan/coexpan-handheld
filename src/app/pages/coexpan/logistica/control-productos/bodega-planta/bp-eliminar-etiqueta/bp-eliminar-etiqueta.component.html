@@ -1,0 +1,61 @@
+<ion-header>
+  <ion-toolbar class="toolbar">
+    <ion-grid fixed>
+      <ion-row class="ion-row-1 ion-justify-content-center">
+        <ion-col size="12">
+          <ion-title>Eliminar Etiqueta Pallet</ion-title>
+        </ion-col>
+        <ion-col size="12">
+          <ion-item class="ion-item-1">
+            <ion-textarea #codigos rows="1"
+              disabled="false"
+              placeholder="Escanea Códido de Pallet..."
+              (keyup.enter)="obtenerDatosPallet(codigos.value)">
+            </ion-textarea>
+            <ion-spinner *ngIf="txtarea.spinner"  style="margin-top: 10px;" name="bubbles"></ion-spinner>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-card *ngIf="pallet" id="cardbobina">
+  <ion-card-header>
+    <ion-card-subtitle>Orden Fab: {{pallet.ORDEN_FAB}}</ion-card-subtitle>
+    <ion-card-title>{{pallet.NOM_PRODUCTO}}</ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    <div>Cliente: {{pallet.CLIENTE}}</div>
+    <div>Cant. Bobinas: {{pallet.CANT_BOB}}</div>
+    <div>Peso Bruto: {{pallet.PESO_BRUTO}}</div>
+    <div>Peso Neto: {{pallet.PESO_NETO}}</div>
+    <div>N° Pallet: {{pallet.CORRELATIVO}}</div>
+  </ion-card-content>
+</ion-card>
+
+
+<ion-footer>
+  <ion-toolbar class="toolbar">
+    <ion-grid fixed>
+      <ion-row class="ion-row-2 ion-justify-content-center">
+        <ion-col size="12">
+          <ion-button #btnEliminar size="large" expand="block" class="btn-1"
+            (click)="alertEliminarEtiqueta()">
+            Eliminar
+          </ion-button>
+        </ion-col>
+        <!-- <ion-col size="6">
+          <ion-button #btnEliminar size="large" expand="block" class="btn-1"
+            (click)="eliminarunoauno()">
+            String
+          </ion-button>
+        </ion-col> -->
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-footer>
+
+
+

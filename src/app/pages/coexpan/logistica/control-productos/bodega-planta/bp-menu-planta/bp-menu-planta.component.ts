@@ -25,6 +25,10 @@ export class BpMenuPlantaComponent implements OnInit {
     this.routes.navigateByUrl('pages/cxp/control/bp/reimprimiretq');
   }
 
+  pageEliminarEtiqueta() {
+    this.routes.navigateByUrl('pages/cxp/control/bp/eliminaretq');
+  }
+
   pageEntradaMercancia() {
     // this.routes.navigateByUrl('pages/cxp/control/bp/em');
     const strUserSap = localStorage.getItem('usersap');
