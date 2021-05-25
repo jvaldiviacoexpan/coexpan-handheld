@@ -156,6 +156,7 @@ export class CxpService {
     return new Promise((resolve, reject) => {
       this.http.post(`${this.urlRelease}/security/login`, JSON.stringify(data))
         .subscribe( res => {
+          console.log(res);
           resolve(res);
         }, (err) => {
           reject(err);
