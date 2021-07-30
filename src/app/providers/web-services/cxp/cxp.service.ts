@@ -15,11 +15,12 @@ export class CxpService {
   // private urlRelease = '/prueba';
   // private urlRelease = '/release';
   // private urlRelease = '/api-coexpan-debug';
-
   // private urlRelease = 'http://localhost:44302/wscoexpan';
+
   // private urlRelease = 'http://192.168.11.15:9094/api-coexpan/debug/wscoexpan';
   //#endregion URL API's
   private urlRelease = 'http://192.168.11.15:9094/api-coexpan/v1/wscoexpan';
+  private urlBase = 'http://192.168.11.15:9094/api/logistica-etq/impresion/emision-etiqueta-recepcion';
 
 
   //#region BODEGA PLANTA
@@ -239,6 +240,19 @@ export class CxpService {
     });
   }
   //#endregion METODOS bp-etq-reimprimir
+
+  // TODO INTEGRACION 20-07-2021 Emision de etiqueta,
+  public cxpReimprimirEtiquetaRecepcion(data: any) {
+    return new Promise((resolve, reject) => {
+      this.http.post(`${this.urlBase}`, JSON.stringify(data))
+        .subscribe( res => {
+          resolve(res);
+        }, (err) => {
+          reject(err);
+          console.log(err);
+        });
+    });
+  }
 
 }
 

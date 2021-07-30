@@ -184,7 +184,7 @@ export class BpEliminarEtiquetaComponent implements OnInit, AfterViewInit {
                 this.dismissLoading();
                 this.alertComprobarUsuario();
               } else {
-                this.toastMessage('Credenciales Incorrectas.', 'danger', 2000);
+                this.toastMessage('Credenciales Incorrectas.', 'danger', 2050);
                 this.dismissLoading();
                 this.alertComprobarUsuario();
               }

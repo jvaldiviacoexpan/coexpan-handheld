@@ -54,7 +54,7 @@ export class BrEgresoComponent implements OnInit, AfterViewInit {
     // console.log(registro.CodBarras);
     if (registro.CodBarras.length === 0) {
       this.presentAlert(
-        'Error', 'Debe Escanear para poder enviar los códigos', ''
+        'Error', 'Debe Escanear para poder enviar los códigos. ', ''
       );
       this.dismiss();
       this.htmlCodigos.value = '';

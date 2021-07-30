@@ -52,6 +52,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
     usuario.user = this.user.value.toString();
     usuario.password = this.pass.value.toString();
     usuario.companydb = 'SBO_COEXPAN_OFI';
+    // usuario.companydb = 'Z_SBO_COEXPAN_TEST';
     this.btnEnviar.disabled = true;
     //#endregion Variables
 

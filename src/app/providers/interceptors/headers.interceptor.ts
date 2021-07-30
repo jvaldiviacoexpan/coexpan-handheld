@@ -26,22 +26,32 @@ export class HeadersInterceptor implements HttpInterceptor {
                     Accept,
                   },
       });
+      console.log(request.url);
     } else {
       if (request.body.toString() === '[object FormData]') {
         console.log('Se envió un Archivo');
       } else {
-        console.log(request.url);
-        request = request.clone({
+        console.log(`url dada: ${request.url}`);
+        if (request.url === 'http://192.168.11.15:9094/api/logistica-etq/impresion/emision-etiqueta-recepcion') {
+          // console.log('paso por nueva api');
+          request = request.clone({
+                    setHeaders: {
+                      // Authorization: authorization,
+                      'Content-Type': 'application/json',
+                      Accept: '*/*',
+                    },
+        });
+        } else {
+          request = request.clone({
                     setHeaders: {
                       Authorization: authorization,
                       'Content-Type': ContentType,
                       Accept,
                     },
         });
+        }
       }
     }
     return next.handle(request);
-
   }
-
 }

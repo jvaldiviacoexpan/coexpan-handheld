@@ -1,7 +1,7 @@
 import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { IonButton, LoadingController, AlertController, IonTextarea, ToastController } from '@ionic/angular';
 import { CxpService } from '../../../../../../providers/web-services/cxp/cxp.service';
-import { GetRequestModel, PalletBobinasModel, SapPostModel, StsPalletModel, UserSapModel } from '../../../../../../models/Registros.model';
+import { GetRequestModel, PalletBobinasModel, SapPostModel, StsPalletModel, UserSapModel, PalletRecepcionModel } from '../../../../../../models/Registros.model';
 import { Router } from '@angular/router';
 
 @Component({
@@ -42,7 +42,7 @@ export class BpEntradaMercanciaComponent implements OnInit, AfterViewInit {
     this.btnEnviar.disabled = true;
     setTimeout(() => {
       this.txtCodigos.setFocus();
-    }, 10000);
+    }, 100);
   }
 
 
@@ -79,7 +79,11 @@ export class BpEntradaMercanciaComponent implements OnInit, AfterViewInit {
           this.pallets.push(request.Objeto);
         }
       } else {
-        this.messageToast(request.Status.MESSAGE);
+        if (request.Objeto.Pallet) {
+          this.AlertaReimprimirEtiqueta(request);
+        } else {
+          this.messageToast(request.Status.MESSAGE);
+        }
       }
       this.txtCodigos.disabled = false;
       setTimeout(() => {
@@ -131,15 +135,17 @@ export class BpEntradaMercanciaComponent implements OnInit, AfterViewInit {
             palletError += 1;
           }
         });
+        //
+        this.eliminarPalletConProblemas(this.pallets, status);
+        //
         if (palletError > 0) {
-          this.messageToast('Error al registrar estos Pallet.');
+          this.messageToast('Error al registrar estos Pallet. ');
         } else {
-          this.messageToast('Pallet(s) registrado(s) en SAP Business One con éxito.');
+          this.messageToast('Pallet(s) registrado(s) en SAP Business One con éxito. ');
           this.pallets = [];
         }
-      }
-      else {
-        this.messageToast('sesión expirada, vuelva a iniciar sesión.');
+      } else {
+        this.messageToast('sesión expirada, vuelva a iniciar sesión. ');
         localStorage.removeItem('usersap');
         this.routes.navigateByUrl('pages/login');
       }
@@ -166,6 +172,7 @@ export class BpEntradaMercanciaComponent implements OnInit, AfterViewInit {
     });
     await alert.present();
   }
+
 
   obtenerPallet(nroPallet: string): PalletBobinasModel {
     let rtnPallet: PalletBobinasModel = new PalletBobinasModel();
@@ -219,6 +226,106 @@ export class BpEntradaMercanciaComponent implements OnInit, AfterViewInit {
   }
   //#endregion Informacion Pallet
 
+
+  // TODO INTEGRACION 28-07-2021 Emisión Etiqueta Recepcion
+  async AlertaReimprimirEtiqueta(mod: GetRequestModel<PalletBobinasModel>) {
+    const alert = await this.alertCtrl.create({
+      header: 'SAP Business One.',
+      message: 'El Pallet ya se encuentra cargado en el sistema, desea reimprimir?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            // console.log();
+          }
+        }, {
+          text: 'Continuar',
+          handler: () => {
+            this.reemprimirEtiquetaRecepcion(mod);
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
+
+  private reemprimirEtiquetaRecepcion(mod: GetRequestModel<PalletBobinasModel>) {
+    const prm: PalletRecepcionModel = new PalletRecepcionModel();
+    prm.codProducto = mod.Objeto.Pallet.COD_PRODUCTO;
+    prm.descProducto = mod.Objeto.Pallet.NOM_PRODUCTO;
+    prm.ordenFab = mod.Objeto.Pallet.ORDEN_FAB;
+    prm.cliente = mod.Objeto.Pallet.CLIENTE;
+    prm.medidas = mod.Objeto.Pallet.MEDIDAS;
+    prm.cantBobinas = Number(mod.Objeto.Pallet.CANT_BOB);
+    prm.corrPallet = Number(mod.Objeto.Pallet.CORRELATIVO);
+    prm.corrPallet = Number(mod.Objeto.Pallet.CORRELATIVO);
+    prm.pesoBruto = Number(mod.Objeto.Pallet.PESO_BRUTO);
+    prm.pesoNeto = Number(mod.Objeto.Pallet.PESO_NETO);
+    prm.idEtqMulti = mod.Objeto.Pallet.CODBAR_MULTI.toString();
+    prm.ipImpresora = localStorage.getItem('ipimp');
+    console.log(prm.ipImpresora);
+
+    if (prm.ipImpresora !== null ||  prm.ipImpresora !== '') {
+      this.cxpService.cxpReimprimirEtiquetaRecepcion(prm).then((data: any) => {
+        this.messageToast(data.message);
+      }, (err) => {
+        this.messageToast('Problemas en el servicio. ');
+        console.log(err);
+      });
+    } else {
+      this.messageToast('Seleccione una impresora para continuar. ');
+    }
+  }
+
+
+  private eliminarPalletConProblemas(pallet: PalletBobinasModel[], rq: GetRequestModel<StsPalletModel[]>) {
+    const newpl: PalletRecepcionModel[] = [];
+    pallet.forEach(pl => {
+      rq.Objeto.forEach(rqpallet => {
+        if (pl.Pallet.CODBAR_MULTI === rqpallet.CodBarra && rqpallet.Estado === 'T') {
+          let pet: PalletRecepcionModel = new PalletRecepcionModel();
+          pet.codProducto = pl.Pallet.COD_PRODUCTO;
+          pet.descProducto = pl.Pallet.NOM_PRODUCTO;
+          pet.ordenFab = pl.Pallet.ORDEN_FAB;
+          pet.cliente = pl.Pallet.CLIENTE;
+          pet.medidas = pl.Pallet.MEDIDAS;
+          pet.cantBobinas = Number(pl.Pallet.CANT_BOB);
+          pet.corrPallet = Number(pl.Pallet.CORRELATIVO);
+          pet.pesoBruto = Number(pl.Pallet.PESO_BRUTO.replace(',', '.'));
+          pet.pesoNeto = Number(pl.Pallet.PESO_NETO.replace(',', '.'));
+          pet.idEtqMulti = pl.Pallet.CODBAR_MULTI;
+          pet.ipImpresora = localStorage.getItem('ipimp');
+          newpl.push(pet);
+          pet = null;
+        }
+      });
+    });
+    this.imprimirEtiquetasRecepcion(newpl);
+  }
+
+
+  private imprimirEtiquetasRecepcion(pallets: PalletRecepcionModel[]) {
+    console.log('Paso por metodo');
+
+    const ipImpresora = localStorage.getItem('ipimp');
+    let cantimp = 0;
+    if (ipImpresora !== null ||  ipImpresora !== '') {
+      pallets.forEach( pl => {
+          this.cxpService.cxpReimprimirEtiquetaRecepcion(pl).then((dataa: any) => {
+            cantimp++;
+          }, (err => {
+            console.log(err);
+          }));
+        });
+      this.messageToast('Etiquetas Enviadas: ' + cantimp);
+    } else {
+      this.messageToast('Seleccione una impresora para continuar. ');
+    }
+  }
+
+
   //#region HERRAMIENTAS
   private existenitems(): boolean {
     if (this.pallets.length > 0) {
@@ -254,7 +361,7 @@ export class BpEntradaMercanciaComponent implements OnInit, AfterViewInit {
   async messageToast(msj: string) {
     const toast = await this.toastController.create({
       message: msj,
-      duration: 2000
+      duration: 5000
     });
     toast.present();
   }

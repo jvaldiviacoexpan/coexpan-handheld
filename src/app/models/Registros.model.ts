@@ -160,5 +160,20 @@ export class StatusDtModel {
   STATUS: number;
   MESSAGE: string;
 }
+
+// TODO INTEGRACION 20-07-2021
+export class PalletRecepcionModel {
+    codProducto:  string;
+    descProducto: string;
+    ordenFab:     string;
+    cliente:      string;
+    medidas:      string;
+    cantBobinas:  number;
+    corrPallet:   number;
+    pesoBruto:    number;
+    pesoNeto:     number;
+    idEtqMulti:   string;
+    ipImpresora:  string;
+}
 //#endregion
 
