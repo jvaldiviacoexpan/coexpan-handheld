@@ -261,11 +261,11 @@ export class BpEntradaMercanciaComponent implements OnInit, AfterViewInit {
     prm.cantBobinas = Number(mod.Objeto.Pallet.CANT_BOB);
     prm.corrPallet = Number(mod.Objeto.Pallet.CORRELATIVO);
     prm.corrPallet = Number(mod.Objeto.Pallet.CORRELATIVO);
-    prm.pesoBruto = Number(mod.Objeto.Pallet.PESO_BRUTO);
-    prm.pesoNeto = Number(mod.Objeto.Pallet.PESO_NETO);
+    prm.pesoBruto = Number(mod.Objeto.Pallet.PESO_BRUTO.replace(',', '.'));
+    prm.pesoNeto = Number(mod.Objeto.Pallet.PESO_NETO.replace(',', '.'));
     prm.idEtqMulti = mod.Objeto.Pallet.CODBAR_MULTI.toString();
     prm.ipImpresora = localStorage.getItem('ipimp');
-    console.log(prm.ipImpresora);
+    console.log(prm);
 
     if (prm.ipImpresora !== null ||  prm.ipImpresora !== '') {
       this.cxpService.cxpReimprimirEtiquetaRecepcion(prm).then((data: any) => {
@@ -297,6 +297,7 @@ export class BpEntradaMercanciaComponent implements OnInit, AfterViewInit {
           pet.pesoNeto = Number(pl.Pallet.PESO_NETO.replace(',', '.'));
           pet.idEtqMulti = pl.Pallet.CODBAR_MULTI;
           pet.ipImpresora = localStorage.getItem('ipimp');
+          console.log(pet);
           newpl.push(pet);
           pet = null;
         }

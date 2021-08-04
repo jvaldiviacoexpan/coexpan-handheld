@@ -30,6 +30,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
         } else {
           // backend error
           errorMessage = `Server-side error: ${error.status} ${error.message}`;
+          console.log(error.error);
         }
 
       // aquí podrías agregar código que muestre el error en alguna parte fija de la pantalla.
