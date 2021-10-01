@@ -298,7 +298,7 @@ export class BpEtqEntradaMercanciaComponent implements OnInit, AfterViewInit {
         dia = `0${fechaDate.getDate()}`;
     } else { dia = fechaDate.getDate().toString(); }
 
-    if (fechaDate.getMonth() < 10) {
+    if (fechaDate.getMonth() < 9) {
         mes = `0${fechaDate.getMonth() + 1}`;
     } else { mes = (fechaDate.getMonth() + 1).toString(); }
 
@@ -314,7 +314,9 @@ export class BpEtqEntradaMercanciaComponent implements OnInit, AfterViewInit {
         segundo = `0${fechaDate.getSeconds()}`;
     } else { segundo = fechaDate.getSeconds().toString(); }
     fechaString = `${anio}${mes}${dia} ${hora}:${minuto}:${segundo}`;
+    console.log(mes);
     return fechaString;
+
   }
 
   transformarArreglo(codigos: string): string[] {
