@@ -183,7 +183,7 @@ export class BrIngresoComponent implements OnInit, AfterViewInit {
         dia = fechaDate.getDate().toString();
     }
 
-    if (fechaDate.getMonth() < 10) {
+    if (fechaDate.getMonth() < 9) {
         mes = `0${fechaDate.getMonth() + 1}`;
     } else {
         mes = (fechaDate.getMonth() + 1).toString();

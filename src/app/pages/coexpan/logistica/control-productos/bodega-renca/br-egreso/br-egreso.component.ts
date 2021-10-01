@@ -170,7 +170,7 @@ export class BrEgresoComponent implements OnInit, AfterViewInit {
         dia = `0${fechaDate.getDate()}`;
     } else { dia = fechaDate.getDate().toString(); }
 
-    if (fechaDate.getMonth() < 10) {
+    if (fechaDate.getMonth() < 9) {
         mes = `0${fechaDate.getMonth() + 1}`;
     } else { mes = (fechaDate.getMonth() + 1).toString(); }
 
