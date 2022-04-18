@@ -15,12 +15,12 @@ export class CxpService {
   // private urlRelease = '/prueba';
   // private urlRelease = '/release';
   // private urlRelease = '/api-coexpan-debug';
-  // private urlRelease = 'http://localhost:44302/wscoexpan';
+  private urlRelease = 'https://api.coexpan.cl/cat-services/app/n-api-coexpan/wscoexpan';
 
   // private urlRelease = 'http://192.168.11.15:9094/api-coexpan/debug/wscoexpan';
   //#endregion URL API's
-  private urlRelease = 'http://192.168.11.15:9094/api-coexpan/v1/wscoexpan';
-  private urlBase = 'http://192.168.11.15:9094/api/logistica-etq/impresion/emision-etiqueta-recepcion';
+  // private urlRelease = 'http://192.168.11.15:9094/api-coexpan/v1/wscoexpan';
+  private urlBase = 'https://api.coexpan.cl/api/logistica-etq/impresion/emision-etiqueta-recepcion';
 
 
   //#region BODEGA PLANTA

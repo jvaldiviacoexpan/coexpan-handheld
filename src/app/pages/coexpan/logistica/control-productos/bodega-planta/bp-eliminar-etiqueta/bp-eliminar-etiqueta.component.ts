@@ -44,8 +44,6 @@ export class BpEliminarEtiquetaComponent implements OnInit, AfterViewInit {
     this.txtCodigos.disabled = true;
   }
 
-
-
   // public comprobarDatoPallet(text: string) {
   //   const newtext = text.trim();
   //
