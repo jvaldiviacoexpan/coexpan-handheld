@@ -8,15 +8,16 @@ export class CxpService {
 
   constructor(
     public http: HttpClient
-  ) {}
+  ) { }
 
   //#region URL API's
   // private urlRelease = '/debugvs';
   // private urlRelease = '/prueba';
   // private urlRelease = '/release';
   // private urlRelease = '/api-coexpan-debug';
-  // private urlRelease = 'https://api.coexpan.cl/cat-services/app/n-api-coexpan/wscoexpan';
-  private urlRelease = 'http://192.168.37.150:9094/cat-services/app/n-api-coexpan/wscoexpan';
+  private urlRelease = 'https://api.coexpan.cl/cat-services/app/n-api-coexpan/wscoexpan';
+  // private urlRelease = 'http://192.168.37.150:9094/cat-services/app/n-api-coexpan/wscoexpan';
+  // private urlRelease = 'http://localhost:44302/wscoexpan';
 
   // private urlRelease = 'http://192.168.11.15:9094/api-coexpan/debug/wscoexpan';
   //#endregion URL API's
@@ -28,7 +29,7 @@ export class CxpService {
   public obtenerToken(id: string) {
     return new Promise((resolve, reject) => {
       this.http.post(`${this.urlRelease}/security/obtenertoken`, JSON.stringify(id))
-        .subscribe( res => {
+        .subscribe(res => {
           resolve(res);
         }, (err) => {
           reject(err);
@@ -41,7 +42,7 @@ export class CxpService {
   public cxpLogisticaEjecutarEtlPesaje() {
     return new Promise((resolve, reject) => {
       this.http.get(`${this.urlRelease}/logistica/scanner/initpesaje`)
-        .subscribe( res => {
+        .subscribe(res => {
           resolve(res);
         }, (err) => {
           reject(err);
@@ -54,7 +55,7 @@ export class CxpService {
   public cxpLogisticaEntradaMercancia(data: any) {
     return new Promise((resolve, reject) => {
       this.http.post(`${this.urlRelease}/logistica/scanner/em`, JSON.stringify(data))
-        .subscribe( res => {
+        .subscribe(res => {
           resolve(res);
         }, (err) => {
           reject(err);
@@ -67,7 +68,7 @@ export class CxpService {
   public cxpLogisticaSalidaMercancia(data: any) {
     return new Promise((resolve, reject) => {
       this.http.post(`${this.urlRelease}/logistica/scanner/sm`, JSON.stringify(data))
-        .subscribe( res => {
+        .subscribe(res => {
           resolve(res);
         }, (err) => {
           reject(err);
@@ -80,7 +81,7 @@ export class CxpService {
   public cxpLogisticaImprimirEtiquetaMultimple(data: any) {
     return new Promise((resolve, reject) => {
       this.http.post(`${this.urlRelease}/logistica/bodegaplanta/ang-imprimiretq`, JSON.stringify(data))
-        .subscribe( res => {
+        .subscribe(res => {
           resolve(res);
         }, (err) => {
           reject(err);
@@ -93,7 +94,7 @@ export class CxpService {
   public cxpLogisticaGetPalletBobinas(codbarramulti: string) {
     return new Promise((resolve, reject) => {
       this.http.post(`${this.urlRelease}/logistica/scanner/obtenerpallet`, JSON.stringify(codbarramulti))
-        .subscribe( res => {
+        .subscribe(res => {
           resolve(res);
         }, (err) => {
           reject(err);
@@ -105,7 +106,7 @@ export class CxpService {
   public cxpLogisticaenviarEntradaMercancia(datos: any) {
     return new Promise((resolve, reject) => {
       this.http.post(`${this.urlRelease}/logistica/scanner/postem`, JSON.stringify(datos))
-        .subscribe( res => {
+        .subscribe(res => {
           resolve(res);
         }, (err) => {
           reject(err);
@@ -114,10 +115,10 @@ export class CxpService {
   }
 
 
-  public cxpLogisticaEliminarEtiquetaPallet(data: any){
+  public cxpLogisticaEliminarEtiquetaPallet(data: any) {
     return new Promise((resolve, reject) => {
       this.http.post(`${this.urlRelease}/logistica/scanner/eliminaretiqueta`, JSON.stringify(data))
-        .subscribe( res => {
+        .subscribe(res => {
           resolve(res);
         }, (err) => {
           reject(err);
@@ -131,7 +132,7 @@ export class CxpService {
   public cxpBrEnviarIngreso(data: any) {
     return new Promise((resolve, reject) => {
       this.http.post(`${this.urlRelease}/logistica/bodegarenca/ionicingreso`, JSON.stringify(data))
-        .subscribe( res => {
+        .subscribe(res => {
           resolve(res);
         }, (err) => {
           reject(err);
@@ -143,7 +144,7 @@ export class CxpService {
   public cxpBrEnviarEgreso(data: any) {
     return new Promise((resolve, reject) => {
       this.http.post(`${this.urlRelease}/logistica/bodegarenca/ionicegreso`, JSON.stringify(data))
-        .subscribe( res => {
+        .subscribe(res => {
           resolve(res);
         }, (err) => {
           reject(err);
@@ -157,7 +158,7 @@ export class CxpService {
   public cxpLogisticaLogin(data: any) {
     return new Promise((resolve, reject) => {
       this.http.post(`${this.urlRelease}/security/login`, JSON.stringify(data))
-        .subscribe( res => {
+        .subscribe(res => {
           console.log(res);
           resolve(res);
         }, (err) => {
@@ -170,7 +171,7 @@ export class CxpService {
   public cxpLogisticaExtrusionLogin(data: any) {
     return new Promise((resolve, reject) => {
       this.http.post(`${this.urlRelease}/logistica/scanner/login`, JSON.stringify(data))
-        .subscribe( res => {
+        .subscribe(res => {
           resolve(res);
         }, (err) => {
           reject(err);
@@ -182,7 +183,7 @@ export class CxpService {
   public cxpLogisticaLogout(data: any) {
     return new Promise((resolve, reject) => {
       this.http.post(`${this.urlRelease}/security/logout`, JSON.stringify(data))
-        .subscribe( res => {
+        .subscribe(res => {
           resolve(res);
         }, (err) => {
           reject(err);
@@ -194,7 +195,7 @@ export class CxpService {
   public cxpLogisticaGetImpresora() {
     return new Promise((resolve, reject) => {
       this.http.get(`${this.urlRelease}/dashboard/getimpresoras`)
-        .subscribe( res => {
+        .subscribe(res => {
           resolve(res);
         }, (err) => {
           reject(err);
@@ -206,7 +207,7 @@ export class CxpService {
   public cxpEstadoImpresora(data: any) {
     return new Promise((resolve, reject) => {
       this.http.post(`${this.urlRelease}/impresora/estado`, JSON.stringify(data))
-        .subscribe( res => {
+        .subscribe(res => {
           resolve(res);
         }, (err) => {
           reject(err);
@@ -220,7 +221,7 @@ export class CxpService {
   public cxpObtenerInformacionEtiquetaPallet(data: any) {
     return new Promise((resolve, reject) => {
       this.http.post(`${this.urlRelease}/logistica/scanner/getinfoetq`, JSON.stringify(data))
-        .subscribe( res => {
+        .subscribe(res => {
           resolve(res);
         }, (err) => {
           reject(err);
@@ -232,7 +233,7 @@ export class CxpService {
   public cxpReimprimirEtiquetaPallet(data: any) {
     return new Promise((resolve, reject) => {
       this.http.post(`${this.urlRelease}/logistica/scanner/reimprimiretq`, JSON.stringify(data))
-        .subscribe( res => {
+        .subscribe(res => {
           resolve(res);
         }, (err) => {
           reject(err);
@@ -246,7 +247,7 @@ export class CxpService {
   public cxpReimprimirEtiquetaRecepcion(data: any) {
     return new Promise((resolve, reject) => {
       this.http.post(`${this.urlBase}`, JSON.stringify(data))
-        .subscribe( res => {
+        .subscribe(res => {
           resolve(res);
         }, (err) => {
           reject(err);
