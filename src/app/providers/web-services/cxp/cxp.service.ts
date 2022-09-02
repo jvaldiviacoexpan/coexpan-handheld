@@ -15,7 +15,7 @@ export class CxpService {
   // private urlRelease = '/prueba';
   // private urlRelease = '/release';
   // private urlRelease = '/api-coexpan-debug';
-  private urlRelease = 'https://api.coexpan.cl/cat-services/app/n-api-coexpan/wscoexpan';
+  private urlRelease = 'https://test.coexpan.cl/movil/logistica/#/pages/inicio';
   // private urlRelease = 'http://192.168.37.150:9094/cat-services/app/n-api-coexpan/wscoexpan';
   // private urlRelease = 'http://localhost:44302/wscoexpan';
 
