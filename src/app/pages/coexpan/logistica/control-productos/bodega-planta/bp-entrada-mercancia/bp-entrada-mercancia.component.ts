@@ -145,9 +145,14 @@ export class BpEntradaMercanciaComponent implements OnInit, AfterViewInit {
           this.pallets = [];
         }
       } else {
-        this.messageToast('sesión expirada, vuelva a iniciar sesión. ');
-        localStorage.removeItem('usersap');
-        this.routes.navigateByUrl('pages/login');
+        // this.messageToast('sesión expirada, vuelva a iniciar sesión. ');
+        if (status.Objeto[0].SapMensaje) {
+          this.messageToast(status.Objeto[0].SapMensaje);
+        } else {
+          this.messageToast(status.Status.MESSAGE);
+        }
+        // localStorage.removeItem('usersap');
+        // this.routes.navigateByUrl('pages/login');
       }
       this.existenitems();
       console.log(data);

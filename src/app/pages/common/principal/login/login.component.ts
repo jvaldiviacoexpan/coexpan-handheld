@@ -4,6 +4,7 @@ import { CxpService } from '../../../../providers/web-services/cxp/cxp.service';
 import { Router } from '@angular/router';
 import { AppComponent } from '../../../../app.component';
 import { LoginModel, MessageModel, UserSapModel } from '../../../../models/Registros.model';
+import { environment as env } from 'src/environments/environment';
 
 
 @Component ({
@@ -51,9 +52,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
     const usuario: LoginModel = new LoginModel();
     usuario.user = this.user.value.toString();
     usuario.password = this.pass.value.toString();
-    // usuario.companydb = 'SBO_COEXPAN_OFI';
-    usuario.companydb = '01TEST_COEMBAL';
-    // usuario.companydb = 'Z_SBO_COEXPAN_TEST';
+    usuario.companydb = env.BD_SAP;
     this.btnEnviar.disabled = true;
     //#endregion Variables
 

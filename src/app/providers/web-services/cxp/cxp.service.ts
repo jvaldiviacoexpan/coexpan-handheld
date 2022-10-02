@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment as env } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -10,26 +11,10 @@ export class CxpService {
     public http: HttpClient
   ) { }
 
-  //#region URL API's
-  // private urlRelease = '/debugvs';
-  // private urlRelease = '/prueba';
-  // private urlRelease = '/release';
-  // private urlRelease = '/api-coexpan-debug';
-  // private urlRelease = 'https://api.coexpan.cl/cat-services/app/n-api-coexpan/wscoexpan';
-  private urlRelease = 'https://test.coexpan.cl/api/v1/wscoexpan';
-  // private urlRelease = 'http://192.168.37.150:9094/cat-services/app/n-api-coexpan/wscoexpan';
-  // private urlRelease = 'http://localhost:44302/wscoexpan';
-
-  // private urlRelease = 'http://192.168.11.15:9094/api-coexpan/debug/wscoexpan';
-  //#endregion URL API's
-  // private urlRelease = 'http://192.168.11.15:9094/api-coexpan/v1/wscoexpan';
-  private urlBase = 'https://api.coexpan.cl/api/logistica-etq/impresion/emision-etiqueta-recepcion';
-
-
   //#region BODEGA PLANTA
   public obtenerToken(id: string) {
     return new Promise((resolve, reject) => {
-      this.http.post(`${this.urlRelease}/security/obtenertoken`, JSON.stringify(id))
+      this.http.post(`${env.URL_API_COEXPAN}/security/obtenertoken`, JSON.stringify(id))
         .subscribe(res => {
           resolve(res);
         }, (err) => {
@@ -42,7 +27,7 @@ export class CxpService {
 
   public cxpLogisticaEjecutarEtlPesaje() {
     return new Promise((resolve, reject) => {
-      this.http.get(`${this.urlRelease}/logistica/scanner/initpesaje`)
+      this.http.get(`${env.URL_API_COEXPAN}/logistica/scanner/initpesaje`)
         .subscribe(res => {
           resolve(res);
         }, (err) => {
@@ -55,7 +40,7 @@ export class CxpService {
 
   public cxpLogisticaEntradaMercancia(data: any) {
     return new Promise((resolve, reject) => {
-      this.http.post(`${this.urlRelease}/logistica/scanner/em`, JSON.stringify(data))
+      this.http.post(`${env.URL_API_COEXPAN}/logistica/scanner/em`, JSON.stringify(data))
         .subscribe(res => {
           resolve(res);
         }, (err) => {
@@ -68,7 +53,7 @@ export class CxpService {
 
   public cxpLogisticaSalidaMercancia(data: any) {
     return new Promise((resolve, reject) => {
-      this.http.post(`${this.urlRelease}/logistica/scanner/sm`, JSON.stringify(data))
+      this.http.post(`${env.URL_API_COEXPAN}/logistica/scanner/sm`, JSON.stringify(data))
         .subscribe(res => {
           resolve(res);
         }, (err) => {
@@ -81,7 +66,7 @@ export class CxpService {
 
   public cxpLogisticaImprimirEtiquetaMultimple(data: any) {
     return new Promise((resolve, reject) => {
-      this.http.post(`${this.urlRelease}/logistica/bodegaplanta/ang-imprimiretq`, JSON.stringify(data))
+      this.http.post(`${env.URL_API_COEXPAN}/logistica/bodegaplanta/ang-imprimiretq`, JSON.stringify(data))
         .subscribe(res => {
           resolve(res);
         }, (err) => {
@@ -94,7 +79,7 @@ export class CxpService {
 
   public cxpLogisticaGetPalletBobinas(codbarramulti: string) {
     return new Promise((resolve, reject) => {
-      this.http.post(`${this.urlRelease}/logistica/scanner/obtenerpallet`, JSON.stringify(codbarramulti))
+      this.http.post(`${env.URL_API_COEXPAN}/logistica/scanner/obtenerpallet`, JSON.stringify(codbarramulti))
         .subscribe(res => {
           resolve(res);
         }, (err) => {
@@ -106,7 +91,7 @@ export class CxpService {
 
   public cxpLogisticaenviarEntradaMercancia(datos: any) {
     return new Promise((resolve, reject) => {
-      this.http.post(`${this.urlRelease}/logistica/scanner/postem`, JSON.stringify(datos))
+      this.http.post(`${env.URL_API_COEXPAN}/logistica/scanner/postem`, JSON.stringify(datos))
         .subscribe(res => {
           resolve(res);
         }, (err) => {
@@ -118,7 +103,7 @@ export class CxpService {
 
   public cxpLogisticaEliminarEtiquetaPallet(data: any) {
     return new Promise((resolve, reject) => {
-      this.http.post(`${this.urlRelease}/logistica/scanner/eliminaretiqueta`, JSON.stringify(data))
+      this.http.post(`${env.URL_API_COEXPAN}/logistica/scanner/eliminaretiqueta`, JSON.stringify(data))
         .subscribe(res => {
           resolve(res);
         }, (err) => {
@@ -132,7 +117,7 @@ export class CxpService {
   //#region BODEGA RENCA
   public cxpBrEnviarIngreso(data: any) {
     return new Promise((resolve, reject) => {
-      this.http.post(`${this.urlRelease}/logistica/bodegarenca/ionicingreso`, JSON.stringify(data))
+      this.http.post(`${env.URL_API_COEXPAN}/logistica/bodegarenca/ionicingreso`, JSON.stringify(data))
         .subscribe(res => {
           resolve(res);
         }, (err) => {
@@ -144,7 +129,7 @@ export class CxpService {
 
   public cxpBrEnviarEgreso(data: any) {
     return new Promise((resolve, reject) => {
-      this.http.post(`${this.urlRelease}/logistica/bodegarenca/ionicegreso`, JSON.stringify(data))
+      this.http.post(`${env.URL_API_COEXPAN}/logistica/bodegarenca/ionicegreso`, JSON.stringify(data))
         .subscribe(res => {
           resolve(res);
         }, (err) => {
@@ -158,7 +143,7 @@ export class CxpService {
   //#region METODOS GENERICOS
   public cxpLogisticaLogin(data: any) {
     return new Promise((resolve, reject) => {
-      this.http.post(`${this.urlRelease}/security/login`, JSON.stringify(data))
+      this.http.post(`${env.URL_API_COEXPAN}/security/login`, JSON.stringify(data))
         .subscribe(res => {
           console.log(res);
           resolve(res);
@@ -171,7 +156,7 @@ export class CxpService {
 
   public cxpLogisticaExtrusionLogin(data: any) {
     return new Promise((resolve, reject) => {
-      this.http.post(`${this.urlRelease}/logistica/scanner/login`, JSON.stringify(data))
+      this.http.post(`${env.URL_API_COEXPAN}/logistica/scanner/login`, JSON.stringify(data))
         .subscribe(res => {
           resolve(res);
         }, (err) => {
@@ -183,7 +168,7 @@ export class CxpService {
 
   public cxpLogisticaLogout(data: any) {
     return new Promise((resolve, reject) => {
-      this.http.post(`${this.urlRelease}/security/logout`, JSON.stringify(data))
+      this.http.post(`${env.URL_API_COEXPAN}/security/logout`, JSON.stringify(data))
         .subscribe(res => {
           resolve(res);
         }, (err) => {
@@ -195,7 +180,7 @@ export class CxpService {
 
   public cxpLogisticaGetImpresora() {
     return new Promise((resolve, reject) => {
-      this.http.get(`${this.urlRelease}/dashboard/getimpresoras`)
+      this.http.get(`${env.URL_API_COEXPAN}/dashboard/getimpresoras`)
         .subscribe(res => {
           resolve(res);
         }, (err) => {
@@ -207,7 +192,7 @@ export class CxpService {
 
   public cxpEstadoImpresora(data: any) {
     return new Promise((resolve, reject) => {
-      this.http.post(`${this.urlRelease}/impresora/estado`, JSON.stringify(data))
+      this.http.post(`${env.URL_API_COEXPAN}/impresora/estado`, JSON.stringify(data))
         .subscribe(res => {
           resolve(res);
         }, (err) => {
@@ -221,7 +206,7 @@ export class CxpService {
   //#region METODOS bp-etq-reimprimir
   public cxpObtenerInformacionEtiquetaPallet(data: any) {
     return new Promise((resolve, reject) => {
-      this.http.post(`${this.urlRelease}/logistica/scanner/getinfoetq`, JSON.stringify(data))
+      this.http.post(`${env.URL_API_COEXPAN}/logistica/scanner/getinfoetq`, JSON.stringify(data))
         .subscribe(res => {
           resolve(res);
         }, (err) => {
@@ -233,7 +218,7 @@ export class CxpService {
 
   public cxpReimprimirEtiquetaPallet(data: any) {
     return new Promise((resolve, reject) => {
-      this.http.post(`${this.urlRelease}/logistica/scanner/reimprimiretq`, JSON.stringify(data))
+      this.http.post(`${env.URL_API_COEXPAN}/logistica/scanner/reimprimiretq`, JSON.stringify(data))
         .subscribe(res => {
           resolve(res);
         }, (err) => {
@@ -247,7 +232,7 @@ export class CxpService {
   // TODO INTEGRACION 20-07-2021 Emision de etiqueta,
   public cxpReimprimirEtiquetaRecepcion(data: any) {
     return new Promise((resolve, reject) => {
-      this.http.post(`${this.urlBase}`, JSON.stringify(data))
+      this.http.post(`${env.URL_API_IMPRESORA}`, JSON.stringify(data))
         .subscribe(res => {
           resolve(res);
         }, (err) => {
