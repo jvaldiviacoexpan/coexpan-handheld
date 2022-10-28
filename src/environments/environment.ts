@@ -12,8 +12,8 @@ export const environment = {
   URL_API_IMPRESORA: 'https://api.coexpan.cl/api/logistica-etq/impresion/emision-etiqueta-recepcion',
 
   // SAP BO
-  BD_SAP: 'SBO_COEMBAL_FUSION',
-  // BD_SAP: '01TEST_COEMBAL',
+  // BD_SAP: 'SBO_COEMBAL_FUSION',
+  BD_SAP: '01TEST_COEMBAL',
   // BD_SAP: 'Z_SBO_COEXPAN_TEST',
   // BD_SAP: 'SBO_COEXPAN_OFI',
 
