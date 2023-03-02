@@ -3,6 +3,8 @@ import { IonButton, LoadingController, AlertController, IonTextarea, ToastContro
 import { CxpService } from '../../../../../../providers/web-services/cxp/cxp.service';
 import { GetRequestModel, PalletBobinasModel, SapPostModel, StsPalletModel, UserSapModel, PalletRecepcionModel } from '../../../../../../models/Registros.model';
 import { Router } from '@angular/router';
+import { PalletBodegaRecepcionModel, ModelData } from '../../../../../../models/bodega-recepcion.model';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-bp-entrada-mercancia',
@@ -258,23 +260,33 @@ export class BpEntradaMercanciaComponent implements OnInit, AfterViewInit {
 
   private reemprimirEtiquetaRecepcion(mod: GetRequestModel<PalletBobinasModel>) {
     const prm: PalletRecepcionModel = new PalletRecepcionModel();
-    prm.codProducto = mod.Objeto.Pallet.COD_PRODUCTO;
-    prm.descProducto = mod.Objeto.Pallet.NOM_PRODUCTO;
-    prm.ordenFab = mod.Objeto.Pallet.ORDEN_FAB;
-    prm.cliente = mod.Objeto.Pallet.CLIENTE;
-    prm.medidas = mod.Objeto.Pallet.MEDIDAS;
-    prm.cantBobinas = Number(mod.Objeto.Pallet.CANT_BOB);
-    prm.corrPallet = Number(mod.Objeto.Pallet.CORRELATIVO);
-    prm.corrPallet = Number(mod.Objeto.Pallet.CORRELATIVO);
-    prm.pesoBruto = Number(mod.Objeto.Pallet.PESO_BRUTO.replace(',', '.'));
-    prm.pesoNeto = Number(mod.Objeto.Pallet.PESO_NETO.replace(',', '.'));
-    prm.idEtqMulti = mod.Objeto.Pallet.CODBAR_MULTI.toString();
-    prm.ipImpresora = localStorage.getItem('ipimp');
     console.log(prm);
 
+    const pallet: PalletBodegaRecepcionModel = new PalletBodegaRecepcionModel();
+    pallet.modelData = new ModelData();
+    pallet.ipAddress = localStorage.getItem('ipimp');
+    pallet.modelData.fecha = mod.Objeto.Pallet.FECHA;
+    pallet.modelData.hora = mod.Objeto.Pallet.HORA.substring(0,5).replace(':', '');
+    pallet.modelData.descrProducto = mod.Objeto.Pallet.NOM_PRODUCTO;
+    pallet.modelData.codProducto = mod.Objeto.Pallet.COD_PRODUCTO;
+    pallet.modelData.ordenFab = mod.Objeto.Pallet.ORDEN_FAB;
+    pallet.modelData.cliente = mod.Objeto.Pallet.CLIENTE;
+    pallet.modelData.medidas = mod.Objeto.Pallet.MEDIDAS;
+    pallet.modelData.cantBobina = mod.Objeto.Pallet.CANT_BOB;
+    pallet.modelData.corrPallet = mod.Objeto.Pallet.CORRELATIVO;
+    pallet.modelData.pesoBruto = mod.Objeto.Pallet.PESO_BRUTO.replace(',', '.');
+    pallet.modelData.pesoNeto = mod.Objeto.Pallet.PESO_NETO.replace(',', '.');
+
     if (prm.ipImpresora !== null ||  prm.ipImpresora !== '') {
-      this.cxpService.cxpReimprimirEtiquetaRecepcion(prm).then((data: any) => {
-        this.messageToast(data.message);
+      this.cxpService.cxpReimprimirEtiquetaRecepcion(pallet).then((data: any) => {
+        console.log(JSON.parse(data));
+        const resp = JSON.parse(data);
+        if (resp.Status === 'T') {
+          this.messageToast(resp.Message);
+        } else {
+          this.messageToast(resp.Message_Exception);
+        }
+
       }, (err) => {
         this.messageToast('Problemas en el servicio. ');
         console.log(err);
@@ -315,11 +327,30 @@ export class BpEntradaMercanciaComponent implements OnInit, AfterViewInit {
   private imprimirEtiquetasRecepcion(pallets: PalletRecepcionModel[]) {
     console.log('Paso por metodo');
 
+
+
     const ipImpresora = localStorage.getItem('ipimp');
     let cantimp = 0;
     if (ipImpresora !== null ||  ipImpresora !== '') {
-      pallets.forEach( pl => {
-          this.cxpService.cxpReimprimirEtiquetaRecepcion(pl).then((dataa: any) => {
+      pallets.forEach(pl => {
+
+        const pallet: PalletBodegaRecepcionModel = new PalletBodegaRecepcionModel();
+        pallet.modelData = new ModelData();
+        const date = new Date().toISOString().toString();
+        pallet.ipAddress = pl.ipImpresora;
+        pallet.modelData.fecha = date.split('T')[0];
+        pallet.modelData.hora = date.split('T')[1].substring(0,5).replace(':', '');
+        pallet.modelData.descrProducto = pl.descProducto;
+        pallet.modelData.codProducto = pl.codProducto;
+        pallet.modelData.ordenFab = pl.ordenFab;
+        pallet.modelData.cliente = pl.cliente;
+        pallet.modelData.medidas = pl.medidas;
+        pallet.modelData.cantBobina = pl.cantBobinas.toString();
+        pallet.modelData.corrPallet = pl.corrPallet.toString();
+        pallet.modelData.pesoBruto = pl.pesoBruto.toString().replace(',', '.');
+        pallet.modelData.pesoNeto = pl.pesoNeto.toString().replace(',', '.');
+
+        this.cxpService.cxpReimprimirEtiquetaRecepcion(pallet).then((pallet: any) => {
             cantimp++;
           }, (err => {
             console.log(err);
@@ -330,6 +361,8 @@ export class BpEntradaMercanciaComponent implements OnInit, AfterViewInit {
       this.messageToast('Seleccione una impresora para continuar. ');
     }
   }
+
+  private construirPallets
 
 
   //#region HERRAMIENTAS

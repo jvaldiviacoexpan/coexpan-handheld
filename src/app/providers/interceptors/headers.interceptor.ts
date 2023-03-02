@@ -32,13 +32,15 @@ export class HeadersInterceptor implements HttpInterceptor {
         console.log('Se envió un Archivo');
       } else {
         console.log(`url dada: ${request.url}`);
-        if (request.url === 'http://192.168.11.15:9094/api/logistica-etq/impresion/emision-etiqueta-recepcion') {
+        if (request.url === 'https://localhost:44342/api/etq-bodega/recepcion-bobina'
+
+        ) {
           // console.log('paso por nueva api');
           request = request.clone({
                     setHeaders: {
                       // Authorization: authorization,
                       'Content-Type': 'application/json',
-                      Accept: '*/*',
+                      Accept: 'application/json',
                     },
         });
         } else {
