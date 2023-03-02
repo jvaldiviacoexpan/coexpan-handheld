@@ -231,6 +231,8 @@ export class CxpService {
 
   // TODO INTEGRACION 20-07-2021 Emision de etiqueta,
   public cxpReimprimirEtiquetaRecepcion(data: any) {
+    console.log('Bodega Recepcion 02-03-2023');
+    console.log(data);
     return new Promise((resolve, reject) => {
       this.http.post(`${env.URL_API_IMPRESORA}`, JSON.stringify(data))
         .subscribe(res => {

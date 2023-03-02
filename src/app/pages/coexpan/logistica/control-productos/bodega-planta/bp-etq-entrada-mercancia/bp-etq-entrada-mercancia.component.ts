@@ -72,9 +72,6 @@ export class BpEtqEntradaMercanciaComponent implements OnInit, AfterViewInit {
     if (event){
       event.target.complete();
     }
-    // setTimeout(() => {
-    //   console.log(event);
-    // }, 3000);
   }
 
   //#region HERRAMIENTAS

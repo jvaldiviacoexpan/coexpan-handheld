@@ -4,16 +4,20 @@
 
 export const environment = {
   production: false,
-  // URL_API_COEXPAN: 'https://test.coexpan.cl/api/v1/wscoexpan',
-  // URL_API_COEXPAN: 'https://api.coexpan.cl/cat-services/app/n-api-coexpan/wscoexpan',
-  // URL_API_COEXPAN: 'http://192.168.37.150:9094/cat-services/app/n-api-coexpan/wscoexpan',
-  // URL_API_COEXPAN: 'http://localhost:44302/wscoexpan',
+
+  // PRODUCCION
   URL_API_COEXPAN: 'https://api.coexpan.cl/api/v1/wscoexpan',
-  URL_API_IMPRESORA: 'https://api.coexpan.cl/api/logistica-etq/impresion/emision-etiqueta-recepcion',
+  // URL_API_COEXPAN: 'https://api.coexpan.cl/cat-services/app/n-api-coexpan/wscoexpan',
+  URL_API_IMPRESORA: 'https://api.coexpan.cl/api/v1/serv-etiquetas/etq-bodega/recepcion-bobina',
+
+  //DESARROLLO
+  // URL_API_COEXPAN: 'https://test.coexpan.cl/api/v1/wscoexpan',
+  // URL_API_COEXPAN: 'http://localhost:44302/wscoexpan',
+  // URL_API_IMPRESORA: 'https://api.coexpan.cl/api/v1/serv-etiquetas/',
 
   // SAP BO
-  // BD_SAP: 'SBO_COEMBAL_FUSION',
-  BD_SAP: '01TEST_COEMBAL',
+  // BD_SAP: 'SBO_COEMBAL_FUSION_TEST',
+  BD_SAP: 'SBO_COEMBAL_FUSION',
   // BD_SAP: 'Z_SBO_COEXPAN_TEST',
   // BD_SAP: 'SBO_COEXPAN_OFI',
 
